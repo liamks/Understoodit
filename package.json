@@ -1,0 +1,14 @@
+{
+  "name" : "understoodit",
+  "version" : "0.0.1",
+  "dependencies" : {
+    "hiredis"   : "0.1.14",
+    "socket.io" : "0.9.2",
+    "redis"     : "0.7.1",
+    "riak-js"   : "0.4.1",
+    "mocha"     : "0.14.1",
+    "should"    : "0.6.0"
+    
+  },
+  "engines" : { "node" : "0.6.13" }
+}

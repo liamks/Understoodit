@@ -1,0 +1,6 @@
+{
+  "5100" : { "teachers.n0" : "[a-e]" },
+  "5101" : { "teachers.n1" : "[f-j]" },
+  "5102" : { "teachers.n2" : "[k-n]" },
+  "5103" : { "teachers.n3" : "[o-z]" }
+}
