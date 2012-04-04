@@ -14,7 +14,10 @@ socketOptions =
 
 tokenA = crypto.createHash('sha256').update(Date.now().toString()).digest('base64')
 tokenB = 'kwtpIq1N8/Sp6cYxEvpoQ1sG09FtodXjUb9aW+ahoM0='
+tokenBTeacher = 'ml5qmczfz6yovJJXr0L0BEO3Av7jMfanrggteFuwMxo='
+
 tokenC = crypto.createHash('sha256').update( tokenA + tokenB ).digest('base64')
+tokenCTeacher = crypto.createHash('sha256').update( tokenA + tokenBTeacher ).digest('base64')
 
 
 process.env.NODE_ENV = 'test'
@@ -22,7 +25,7 @@ process.env.NODE_ENV = 'test'
 teacher1 =
   teacherID : "tom3456"
   tokenA    : tokenA
-  tokenC    : tokenC
+  tokenC    : tokenCTeacher
 
 student1 =
   studentID : "jane1456"
@@ -50,8 +53,6 @@ state =
   active: 3
   confusion : 0
   understanding: 80
-
-
 
 
 describe "Connections", () ->

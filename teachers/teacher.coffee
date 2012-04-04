@@ -55,7 +55,8 @@ class Teacher
     @settings =
       studentsCanSeeComprehension : no
 
-    @numTeachers = 1
+    @numTeachers = 0
+
     @students = {}
     @state =
       numStudents   : 0
@@ -75,7 +76,7 @@ class Teacher
       @send  @teacherID, state
 
       if @settings.studentsCanSeeComprehension
-        state2 = state
+        state2 = _.clone state
         delete state2.numStudents
         delete state2.active
         @send @studentChannel, state2
@@ -150,11 +151,15 @@ class Teacher
     @sendFunction channel, msg
 
   updateSettings: (settings) ->
+    a = no
     if _.isBoolean settings.studentsCanSeeComprehension
       @settings.studentsCanSeeComprehension = settings.studentsCanSeeComprehension
+      a = yes
       
-
-    #send settings to all instances of this teacher
+    if a
+      #send settings to all instances of this teacher
+      @send settings.teacherID, settings
+      
 
   receive: (message) ->
     if message.action is 'confused'

@@ -1,0 +1,49 @@
+{
+  "teacher1" : {
+    "teacherID" : "teacher1lala",
+    "tokenA"    : "7zh5uyZj3kClJdFJIhLpXMroXpwvWzc1AQG4qzEI1ZA=",
+    "tokenC"    : "tpgMkyD58Jda8yQ38ObVwaIKTnCbAn1TOVODQ1RZJV4="
+  },
+
+  "student1" : {
+    "studentID" : "student1lala",
+    "teacherID" : "teacher1lala",
+    "tokenA"    : "7zh5uyZj3kClJdFJIhLpXMroXpwvWzc1AQG4qzEI1ZA=",
+    "tokenC"    : "SpJbS7hZd9buTnvgPsiIXFnfUm9YlOcKxi5AHq5VteQ="
+  },
+
+  "student2" : {
+    "studentID" : "student2lala",
+    "teacherID" : "teacher1lala",
+    "tokenA"    : "7zh5uyZj3kClJdFJIhLpXMroXpwvWzc1AQG4qzEI1ZA=",
+    "tokenC"    : "SpJbS7hZd9buTnvgPsiIXFnfUm9YlOcKxi5AHq5VteQ="
+  },
+
+  "student3" : {
+    "studentID" : "student3lala",
+    "teacherID" : "teacher1lala",
+    "tokenA"    : "7zh5uyZj3kClJdFJIhLpXMroXpwvWzc1AQG4qzEI1ZA=",
+    "tokenC"    : "SpJbS7hZd9buTnvgPsiIXFnfUm9YlOcKxi5AHq5VteQ="
+  },
+
+  "student1Confused" : {
+    "studentID" : "student1lala",
+    "action" : "confused"
+  },
+
+  "student2Confused" : {
+    "studentID" : "student2lala",
+    "action" : "confused"
+  },
+
+  "teacher1Settings" : {
+    "teacherID" : "teacher1lala",
+    "action"   : "settings",
+    "studentsCanSeeComprehension" : true
+  },
+
+  "student1Understood" : {
+    "studentID" : "student1lala",
+    "action" : "understood"  
+  }
+}

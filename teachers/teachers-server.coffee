@@ -53,23 +53,10 @@ class TeachersServer
 
       if @teachers[teacherID].numTeachers is 0 and @teachers[teacherID].numStudents() is 0
         # No one is left in the class
+        @teachers[teacherID].disconnect()
+        delete @teachers[teacherID]
 
-
-
-    if message.studentID?
-
-      if @teachers[teacherID]?
-        @teachers[teacherID].removeStudent message.studentID
-    else
-      if @teachers[teacherID]?
-        @teachers[teacherID].decrementTeachers()
-
-        if not @teachers[teacherID].hasTeachers()
-
-          @teachers[teacherID].disconnect()
-          delete @teachers[teacherID]
-
-          @sendMessage teacherID + ".students", { action: 'stop' }
+        @sendMessage teacherID + ".students", { action: 'stop' }
 
   newConnection: (message, teacherID) ->
     channel = teacherID + ".students"
@@ -84,7 +71,9 @@ class TeachersServer
     else
       # A Teacher has connected
       @teachers[teacherID].incrementTeachers()
-      @sendMessage channel, { action: 'start' } if @teachers[teacherID].numTeachers is 1
+    
+      if @teachers[teacherID].numTeachers is 1
+        @sendMessage channel, { action: 'start' } 
 
 
   sendMessage: (channel, msg) ->

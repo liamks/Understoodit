@@ -83,34 +83,50 @@ describe "Teachers", () ->
     done()
 
   describe "Start and Stopping Lectures", () ->
+    before (done) ->
+      ###
+        Without the wait, the first test will fail ~ 1/5 times,
+        with 'done()' being executed multiple times. For whatever reason
+        the handler from the first test gets executed in the second test.
+
+        Even when the two tests are swapped, the one executed first will fail.
+        IT seems that the bug is just for the test that executes first
+      ###
+      wait = () ->
+        done()
+      setTimeout wait, 5
+
 
     it "Should start when a teacher connects", (done) ->
+
       chnl = "teachers.n1." + teacher1.teacherID
       msg = JSON.stringify connectTeacher1
-
+      
       messageHandler = (channel, msg) ->
         message = JSON.parse msg
-       
+
         if message.action is 'start'
           sub.removeListener 'message', messageHandler
-
           channel.should.equal studentChannel
-     
+          
+          # Disconnect Teacher
           msg = JSON.stringify disconnectTeacher1
           pub.publish chnl, msg
           done()
 
       sub.on 'message', messageHandler
-
+      
       chnl = "teachers.n1." + teacher1.teacherID
       msg = JSON.stringify connectTeacher1
       pub.publish chnl, msg
 
+      
 
     it "Should stop when a teacher disconnects", (done) ->
       handleDisconnect = (channel, msg) ->
         message = JSON.parse msg
         if message.action is 'stop'
+       
           channel.should.equal studentChannel
           sub.removeListener 'message', handleDisconnect
           done()
@@ -166,11 +182,8 @@ describe "Teachers", () ->
           msg = JSON.stringify disconnectStudent1
           pub.publish chnl, msg
 
-          
           msg = JSON.stringify disconnectTeacher1
           pub.publish chnl, msg
-
-
           done()
 
       sub.on 'pmessage', handleConnectedStudent

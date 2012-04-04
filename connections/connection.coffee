@@ -3,6 +3,7 @@ crypto    = require 'crypto'
 whiteList = require '../config/actions-white-list'
 
 tokenB = 'kwtpIq1N8/Sp6cYxEvpoQ1sG09FtodXjUb9aW+ahoM0='
+tokenBTeacher = 'ml5qmczfz6yovJJXr0L0BEO3Av7jMfanrggteFuwMxo='
 
 class Connection
   constructor: (@socket) ->
@@ -28,11 +29,17 @@ class Connection
     @addEventHandlers()
 
   tokensAreValid: () ->
-    c = crypto.createHash('sha256').update( @tokenA + tokenB ).digest('base64')
+    if @studentID
+      # Student tokens
+      tokB = tokenB
+    else
+      # Teacher tokens
+      tokB = tokenBTeacher
+
+    c = crypto.createHash('sha256').update( @tokenA + tokB ).digest('base64')
     c is @tokenC
 
   initialize: () ->
-
     @teacherID = @data.teacherID
     @studentID = @data.studentID
     @tokenA    = @data.tokenA

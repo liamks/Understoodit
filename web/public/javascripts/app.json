@@ -1,0 +1,17 @@
+{
+  "libraries" : [
+    "jquery",
+    "underscore",
+    "bootstrap",
+    "socket.io",
+    "backbone"
+  ],
+
+  "modules" : [
+    "socketModule"
+  ],
+
+  "app" : [
+    "main"
+  ]
+}

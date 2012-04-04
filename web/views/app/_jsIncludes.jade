@@ -1,0 +1,8 @@
+for library in jsIncludes.libraries
+  script(src='/javascripts/lib/' + library + ".js")
+
+
+for module in jsIncludes.modules
+  script(src='/javascripts/modules/' + module + ".js") 
+
+script(src='/javascripts/' + jsIncludes.app + ".js")
