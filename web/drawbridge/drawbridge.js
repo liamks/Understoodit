@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
 var querystring = require('querystring');
+var reservedKeywords = require('./reservedKeywords').keywords;
 
 var postMarkAPIKEY = '57c81312-8357-4f70-a2dc-983929166c79'
 var postmark = require('postmark')(postMarkAPIKEY);
@@ -106,7 +107,7 @@ DrawBridge = function(app){
 }
 
 DrawBridge.prototype.login = function(req, res){
-  if(req.session.user && !req.session.user.loggedIn){
+  if(req.session.user && req.session.user.loggedIn){
     res.redirect('/' + req.session.user.screenName );
   }else{
     options = {
@@ -170,6 +171,8 @@ DrawBridge.prototype.validateRegistration = function(req){
 
   if(options.screenName === ''){
     options.errors.push('Screen Name cannot be blank');
+  }else if(reservedKeywords[options.screenName] === ''){
+    options.errors.push('That Screen Name is unavaible');
   };
 
   if(options.email === ''){

@@ -31,9 +31,10 @@ exports.index = function(req, res){
 };
 
 exports.info = function(req, res){
-  var user = req.session.user;
+  var user = req.user;
   var output = {}, tokens, socketURL;
   output.teacherID = user.teacherID;
+  output.loggedIn = user.loggedIn;
 
   if(user.loggedIn && !user.studentID){
     // Logged in teacher
@@ -87,7 +88,7 @@ exports.understoodit = function(req, res){
   };
 
   options.user = req.user;
-  console.log(options)
+  req.session.screenName = req.params.screenName;
 
   if(options.environment === 'development'){
     options.jsIncludes = require('../public/javascripts/app');

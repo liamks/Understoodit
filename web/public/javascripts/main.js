@@ -15,7 +15,8 @@
   };
 
   BackboneApp.prototype.fetchUserInfo = function(){
-    _this = this
+    _this = this;
+
     $.ajax({
       url     : '/info',
       success : _this.processInfo

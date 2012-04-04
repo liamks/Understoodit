@@ -47,10 +47,10 @@ app.get('/', routes.index);
 
 // App
 var getUser = function(req, res, next){
-  var screenName = req.params.screenName
+  var screenName = req.session.screenName;
   var user = { teacherID : screenName }
-  if(req.session.user){
-  
+  if(req.session.user && req.session.user.loggedIn){
+    user.loggedIn = true;
     //Logged in
     if( screenName === req.session.user.screenName ){
       // Logged in and teacher
@@ -62,9 +62,9 @@ var getUser = function(req, res, next){
     
   }else{
     var newID = uuid.v4();
-    req.session.user = { screenName : newID , loggedIn : false };
     user.studentID = newID;
     user.loggedIn = false;
+    req.session.user = user;
   }
 
   req.user = user;
@@ -76,8 +76,6 @@ app.get('/info', getUser, routes.info);
 // temporary
 app.post('/signup', routes.signup);
 
-
-var reserved = ["ws", "signup", "info", "login", "logout", "register"]
 
 app.get('/:screenName', routes.understoodit );
 

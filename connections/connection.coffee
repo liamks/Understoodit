@@ -29,10 +29,12 @@ class Connection
     @addEventHandlers()
 
   tokensAreValid: () ->
-    if @studentID
+    if @studentID?
+      console.log 'A student: ' + @studentID
       # Student tokens
       tokB = tokenB
     else
+      console.log 'A teacher'
       # Teacher tokens
       tokB = tokenBTeacher
 
@@ -40,6 +42,7 @@ class Connection
     c is @tokenC
 
   initialize: () ->
+    console.log 'INITIALIZEIIII'
     @teacherID = @data.teacherID
     @studentID = @data.studentID
     @tokenA    = @data.tokenA
