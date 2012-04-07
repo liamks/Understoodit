@@ -40,8 +40,12 @@ $(function(){
     },
 
     updateSettings : function( newSettings){
-      console.log('socket updated settings')
-      console.log( newSettings)
+      this.model.set({
+        studentsCanSeeComprehension : newSettings.studentsCanSeeComprehension
+      });
+
+      this.$el.html( this.template( this.model.toJSON() ));
+      this.addFormHandlers();
     },
 
     settingsChanged : function(newSettings ){
@@ -49,10 +53,16 @@ $(function(){
       console.log( newSettings )
     },
 
+    addFormHandlers : function(){
+      this.$form = this.$el.find('form');
+      this.$form.on('submit', $.proxy(this.saveChanges,this));
+      this.$studentsCanSeeComprehension = this.$form.find("input[name=studentsCanSeeComprehension]");
+    },
+
+
     render : function(){
       this.$el.html( this.template( this.model.toJSON() ));
-      this.$form = this.$el.find('form');
-      this.$form.submit($.proxy(this.saveChanges,this));
+      
       $(".tab-content").append(this.$el);
 
       $(".nav-tabs").append($("<li>").append($("<a>").attr({
@@ -60,7 +70,7 @@ $(function(){
         'data-toggle' : 'tab'
       }).text('Settings')))
 
-      this.$studentsCanSeeComprehension = this.$form.find("input[name=studentsCanSeeComprehension]");
+      this.addFormHandlers();
       return this.$el
     }
   });
@@ -72,20 +82,27 @@ $(function(){
 
 
   SettingsModule.prototype.addHandlers = function(){
-    app.events.on('connect-info', this.initialized );
+    app.events.on('connect-info', this.connectInfo );
     app.events.on('settings', this.updateSettings );
     app.events.on('parentView-loaded', this.loadView );
+    app.events.on('initialized', this.initialized);
   };
 
   SettingsModule.prototype.loadView = function(){
-    _this.view.render();
+    if(_this.isTeacher){
+      _this.view.render();
+    };
+  };
+
+  SettingsModule.prototype.initialized = function(obj){
+    _this.isTeacher = obj.isTeacher;
   };
 
   SettingsModule.prototype.updateSettings = function(settings){
     _this.view.updateSettings(settings);
   };
 
-  SettingsModule.prototype.initialized = function(info){
+  SettingsModule.prototype.connectInfo = function(info){
     info.settings.teacherID = info.teacherID;
     _this.settings = new Settings(info.settings);
     _this.view = new SettingsView({ model : _this.settings })

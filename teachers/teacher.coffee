@@ -177,6 +177,8 @@ class Teacher
     if a
       #send settings to all instances of this teacher
       @send settings.teacherID, settings
+
+      @send @studentChannel, settings
       
 
   receive: (message) ->

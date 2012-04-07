@@ -38,7 +38,7 @@ $(function(){
       
       this.$confusometer = this.$el.find('#confusometer');
       this.$understandometer = this.$el.find('#understandometer');
-      
+
       return this.$el;
     }
 
@@ -102,20 +102,45 @@ $(function(){
     app.events.on('lecture-state', this.lectureState );
     app.events.on('initialized', this.connect );
     app.events.on('parentView-loaded', this.parentViewLoaded );
+    app.events.on('settings', this.settings);
+    app.events.on('connect-info', this.connectInfo);
   };
+
+
+  ClassStateModule.prototype.settings = function(settings){
+    if(!_this.isTeacher){
+      var studentsCanSeeComprehension = settings.studentsCanSeeComprehension;
+      if(studentsCanSeeComprehension && !_this.studentsCanSeeComprehension) {
+        _this.studentsCanSeeComprehension = true;
+        _this.comprehensionMeters.render('#dashboard-content');
+      }else if(!studentsCanSeeComprehension && _this.studentsCanSeeComprehension){
+        _this.studentsCanSeeComprehension = false;
+        _this.comprehensionMeters.remove();
+
+      }
+    }
+  };
+
 
   ClassStateModule.prototype.parentViewLoaded = function(){
     if(_this.isTeacher){
       _this.comprehensionMeters.render('#dashboard-content');
       _this.state.render();
     }else{
+      if(_this.studentsCanSeeComprehension){
+      _this.comprehensionMeters.render('#dashboard-content');
 
+      }
     };
   };
 
   ClassStateModule.prototype.connect = function(obj){
     _this.isTeacher = obj.isTeacher;
   };
+
+  ClassStateModule.prototype.connectInfo = function(obj){
+    _this.studentsCanSeeComprehension = obj.settings.studentsCanSeeComprehension;
+  }
 
   ClassStateModule.prototype.lectureState = function(state){
     _this.comprehensionMeters.updateMeters( state );

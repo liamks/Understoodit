@@ -37,6 +37,7 @@ $(function(){
   ComprehensionModule.prototype.addHandlers = function(){
     app.events.on('initialized', this.initialized);
     app.events.on('parentView-loaded', this.loadView);
+
   };
 
   ComprehensionModule.prototype.initialized = function(obj){
