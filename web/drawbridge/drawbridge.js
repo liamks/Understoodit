@@ -26,9 +26,9 @@ User.prototype.authenticate = function(email, password, cb){
         if(err){
           cb('error',null);
         }else{
-          var hashedPassword = bcrypt.hashSync(password, data.salt);
-          if(hashedPassword === data.password){
+          if(bcrypt.compareSync(password, data.password)){
             data.screenName = screenName;
+            data.email = email;
             _this.data = data;
             cb(null, data);
           }else{
@@ -40,19 +40,10 @@ User.prototype.authenticate = function(email, password, cb){
   });
 }
 
-User.prototype.hashPassword = function(password){
-  var salt = bcrypt.genSaltSync(10);
-  return {
-    salt: salt,
-    password: bcrypt.hashSync(password, salt)
-  }
-}
 
 User.prototype.create = function(options, cb){
-  var pswd = this.hashPassword(options.password);
-  options.salt = pswd.salt;
-  options.password = pswd.password;
-
+  var salt = bcrypt.genSaltSync(10);
+  options.password = bcrypt.hashSync(options.password, salt);
   this.db.create(options, cb);
 }
 
@@ -131,6 +122,7 @@ DrawBridge.prototype.processLogin = function(req, res){
         /* success! */
         req.session.user = user;
         req.session.user.loggedIn = true;
+        req.session.user.email = email;
         res.redirect('/' + user.data.screenName );
       }else{
         /* password and email do not match =( */
@@ -190,6 +182,11 @@ DrawBridge.prototype.validateRegistration = function(req){
 
 DrawBridge.prototype.createUser = function(options, error, succ){
   user = new User()
+
+  options.settings = {
+    studentsCanSeeComprehension : false
+  };
+
   user.find(options.screenName, function(err, data){
 
     if(!err.notFound){
@@ -245,6 +242,9 @@ DrawBridge.prototype.processRegister = function(req, res){
   if(options.errors.length > 0){
     error();
   }else{
+    options.settings = {
+      studentsCanSeeComprehension : false
+    };
     this.createUser(options, error, succ);
   }
 }

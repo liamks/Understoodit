@@ -4,6 +4,16 @@
   BackboneApp = function(){
     this.events = _.extend( {}, Backbone.Events );
     this.fetchUserInfo();
+    this.addHandlers();
+  };
+
+  BackboneApp.prototype.addHandlers = function(){
+    this.events.on('initialized', function(){
+      $('#loading').fadeOut(1600, function(){
+        $(this).remove();
+        _this.events.trigger('loading-done','')
+      });
+    });
   };
 
   BackboneApp.prototype.start = function(){

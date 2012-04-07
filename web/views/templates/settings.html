@@ -1,0 +1,22 @@
+<form action="/settings">
+  <div class='row'>
+    <div class="span4">
+      <h4>Students can see confusion</h4>
+      <p>When enabled students are able to see levels of confusion and understanding.</p>
+    </div>
+    <div class="span8">
+      <label class="checkbox">
+        <% if(studentsCanSeeComprehension){ %>
+          <input type="checkbox" name="studentsCanSeeComprehension" checked>
+        <% } else { %>
+          <input type="checkbox" name="studentsCanSeeComprehension">
+        <% } %>
+        Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <input type="submit" value="Save">
+  </div>
+</form>

@@ -1,2 +1,0 @@
-#!/bin/bash
-foreman start -c connections=4,teachers=4,databases=4

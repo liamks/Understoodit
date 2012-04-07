@@ -45,12 +45,23 @@ exports.info = function(req, res){
     output.studentID = user.studentID;
   }
 
+  output.email = user.email;
+  output.loggedIn = user.loggedIn;
   output.socketURL = (process.env.NODE_ENV === 'production') ? 'http://understoodit.com/ws' : 'http://0.0.0.0:5000';
   
   output.tokenA = tokens.tokenA;
   output.tokenC = tokens.tokenC;
 
-  res.json(output);
+  riak.get('users', user.teacherID, function(e,d,m){
+    if(e){
+      res.json({error : 'cannot retrieve teacher (' + user.teacherID + ') settings'})
+    }else{
+      output.settings = d.settings;
+      res.json(output);
+    }
+  })
+
+  
 };
 
 /*
@@ -76,13 +87,50 @@ exports.signup = function(req, res){
   })  
 }
 
+/*
+ * POST save settings
+ */
+
+exports.saveSettings = function(req, res){
+  /* CHECK IF THEY ARE LOGGED IN FIRST */
+  var user = req.user;
+  if(user.loggedIn && user.teacherID === req.params.screenName ){
+    
+    var settings = {
+      studentsCanSeeComprehension : req.param('studentsCanSeeComprehension') == 'true'
+    };
+
+    riak.get('users', req.params.screenName, function(e,d,m){
+      var user = d;
+      var meta = m;
+      meta.index = { email : d.email };
+
+      if(e){
+        res.json('no matches with screen name', 404);
+      } else{
+        user.settings = settings;
+        riak.save('users', req.params.screenName, user, meta, function(error, data, m){
+          if(e){
+            res.json('', 500);
+          }else{
+            res.json('success');
+          }
+          
+        })
+      }
+    });
+  }else{
+    res.json('error', 404);
+  }
+}
+
 
 
 /*
  * GET understoodit application
  */
 exports.understoodit = function(req, res){
-  options = { 
+  var options = { 
     screenName : req.params.screenName,
     environment: process.env.NODE_ENV 
   };

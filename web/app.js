@@ -51,6 +51,8 @@ var getUser = function(req, res, next){
   var user = { teacherID : screenName }
   if(req.session.user && req.session.user.loggedIn){
     user.loggedIn = true;
+    user.email = req.session.user.email;
+
     //Logged in
     if( screenName === req.session.user.screenName ){
       // Logged in and teacher
@@ -68,6 +70,7 @@ var getUser = function(req, res, next){
   }
 
   req.user = user;
+
   next();
 }
 
@@ -77,6 +80,7 @@ app.get('/info', getUser, routes.info);
 app.post('/signup', routes.signup);
 
 
+app.post('/:screenName/settings', getUser, routes.saveSettings );
 app.get('/:screenName', routes.understoodit );
 
 

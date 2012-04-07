@@ -7,7 +7,8 @@ module.exports = {
     var properties = {
       email : options.email,
       password : options.password,
-      salt: options.salt
+      salt: options.salt,
+      settings : options.settings
     };
 
     var meta = {

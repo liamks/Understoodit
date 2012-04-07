@@ -5,4 +5,7 @@ for library in jsIncludes.libraries
 for module in jsIncludes.modules
   script(src='/javascripts/modules/' + module + ".js") 
 
+for template in jsIncludes.templates
+  script(src='/javascripts/' + template + ".js") 
+
 script(src='/javascripts/' + jsIncludes.app + ".js")

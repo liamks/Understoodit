@@ -30,11 +30,9 @@ class Connection
 
   tokensAreValid: () ->
     if @studentID?
-      console.log 'A student: ' + @studentID
       # Student tokens
       tokB = tokenB
     else
-      console.log 'A teacher'
       # Teacher tokens
       tokB = tokenBTeacher
 
@@ -42,7 +40,6 @@ class Connection
     c is @tokenC
 
   initialize: () ->
-    console.log 'INITIALIZEIIII'
     @teacherID = @data.teacherID
     @studentID = @data.studentID
     @tokenA    = @data.tokenA
@@ -70,8 +67,8 @@ class Connection
       @sub.subscribe @teacherID
 
     @sub.on 'message', (channel, msg) =>
-      message = JSON.parse msg
 
+      message = JSON.parse msg
       message.date = Date.now()
       @socket.emit 'message', message
 

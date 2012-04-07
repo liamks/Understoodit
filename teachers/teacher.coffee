@@ -13,8 +13,10 @@ class Student
 
     if process.env.NODE_ENV is 'test'
       @CONFUSION_HALF_LIFE = 10 * 1000
+      @NO_CHANGE = 1
     else
       @CONFUSION_HALF_LIFE = 2 * 60 * 1000
+      @NO_CHANGE = 20 * 1000
 
   confused: (time) ->
     @confusionTime = time
@@ -32,10 +34,16 @@ class Student
 
   decayFunction: (value, time) ->
     delta = Date.now() - time
-    if delta > ( @CONFUSION_HALF_LIFE * 2 )
-      value = 0
-    else
-      value = value * (1 / Math.pow( 2, delta/@CONFUSION_HALF_LIFE ))
+
+    if delta > @NO_CHANGE
+
+      delta -= @NO_CHANGE
+
+      if delta > ( @CONFUSION_HALF_LIFE * 2 ) or value <= 0.01
+        value = 0
+      else
+        value = value * (1 / Math.pow( 2, delta/@CONFUSION_HALF_LIFE ))
+
     value
 
   decay: () -> 
@@ -72,6 +80,7 @@ class Teacher
 
     @interval = setInterval () =>
       state = @getLectureState()
+
       state.action = 'lecture state'
       @send  @teacherID, state
 
@@ -85,6 +94,15 @@ class Teacher
 
   disconnect: () ->
     clearInterval @interval
+
+
+  hasStateChanged: (oldState) ->
+    #not currently being used...
+    numStudents = not ( oldState.numStudents is @state.numStudents )
+    active = not ( oldState.active is @state.active )
+    confusion = not ( oldState.confusion is @state.confusion )
+    understanding = not ( oldState.understanding is @state.understanding )
+    numStudents or active or confusion or understanding
 
   updateLectureState: () ->
     students = _.keys @students
