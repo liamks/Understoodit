@@ -12,3 +12,312 @@
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "VAG Rundschrift Light", sans-serif;
+  font-size-adjust: 0.504;
+  font-weight: 200;
+  font-style: normal;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 5px;
+  text-align: left;
+  position: relative;
+}
+.navbar {
+  background: #0583c6;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.10);
+  height: 100%;
+}
+.navbar .brand {
+  font-size: 30px;
+  color: #fff;
+}
+.navbar ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.navbar ul li {
+  display: inline-block;
+  list-style: none;
+  height: 100%;
+}
+.navbar ul li a {
+  display: inline-block;
+  background: #1b75b9;
+  height: 22px;
+  padding: 12px 10px 0 10px;
+  color: #fff;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.navbar ul li.active a {
+  background: #444;
+}
+.navbar .pull-right {
+  position: absolute;
+  right: 15px;
+  top: -3px;
+}
+.navbar #nav-tabs {
+  margin-left: 20px;
+  height: 100%;
+  position: relative;
+  top: -3px;
+}
+div.meters {
+  height: 46px;
+  position: relative;
+  border: 1px solid #ccc;
+  background: whiteSmoke;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 6px #ccc;
+}
+div.meters .rt-text {
+  z-index: 10;
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  font-size: 160%;
+  font-weight: bold;
+  text-shadow: 0px 1px 1px #eee;
+}
+#notification-box {
+  margin: 5px 0;
+  height: 40px;
+}
+.meter-outer {
+  margin: 20px 0;
+}
+.meter-outer h2 {
+  margin: 0;
+}
+#confusometer-inner {
+  background-color: #ee5f5b;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -ms-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(top, #ee5f5b, #bd362f);
+}
+#understandometer-inner {
+  background-color: #62c462;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -ms-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(top, #62c462, #51a351);
+}
+.rt-inner {
+  height: 46px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.tab-page {
+  display: none;
+}
+.tab-page.active {
+  display: block;
+}
+.tab-content {
+  border-top: 1px solid #ccc;
+}
+#teacherID {
+  background: #0583c6;
+  display: inline-block;
+  padding: 4px 10px;
+  color: #fff;
+  font-size: 120%;
+  border-top-left-radius: 5px;
+}
+.num-outer {
+  display: inline-block;
+}
+.num-outer div {
+  padding: 4px 10px;
+  color: #fff;
+  background: #444;
+  font-size: 120%;
+}
+#numStudents {
+  margin: 0 -4px;
+}
+#active {
+  background: #bbb;
+  border-top-right-radius: 5px;
+}
+#comprehension {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+#comprehension a {
+  text-align: center;
+  font-size: 140%;
+  padding: 8px 0;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #fff;
+  text-shadow: 1px 1px #444;
+  box-shadow: inset 0 0 8px #fff;
+}
+#comprehension a:hover {
+  border: 1px solid #222;
+}
+#understood {
+  background: #008000;
+}
+#confused {
+  background: #f00;
+}
+#understood.inactive,
+#confused.inactive {
+  background: #777;
+  cursor: default;
+}
+#understood.inactive:hover,
+#confused.inactive:hover {
+  border: 1px solid #ccc;
+}
+#nav-collapse {
+  display: inline-block;
+}
+#menu {
+  display: none;
+}
+#menu a {
+  background: #444;
+}
+#smallMenu {
+  display: none;
+}
+#notification-message {
+  display: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px;
+  color: #fff;
+}
+#notification-message.success {
+  display: block;
+  background: #008000;
+  border: 1px solid #050;
+}
+#notification-message.error {
+  display: block;
+  background: #f00;
+  border: 1px solid #500;
+}
+@media (min-width: 960px) {
+  .container {
+    width: 960px;
+  }
+  .meter-outer {
+    width: 470px;
+    display: inline-block;
+  }
+  .meter-outer:first-child {
+    margin-right: 14px;
+  }
+  #comprehension a {
+    width: 466px;
+    display: inline-block;
+  }
+  #comprehension a:first-child {
+    margin-right: 14px;
+  }
+  #nav-collapse.collapse {
+    display: inline-block;
+  }
+  #nav-collapse {
+    display: inline-block;
+  }
+}
+@media (min-width: 700px) and (max-width: 960px) {
+  .container {
+    width: 100%;
+  }
+  .meter-outer {
+    width: 49%;
+    display: inline-block;
+  }
+  #comprehension a {
+    width: 49%;
+    display: inline-block;
+  }
+  #nav-collapse.collapse {
+    display: inline-block;
+  }
+  #nav-collapse {
+    display: inline-block;
+  }
+}
+@media (min-width: 400px) and (max-width: 700px) {
+  .container {
+    width: 500px;
+  }
+  .meter-outer {
+    width: 500px;
+  }
+  #comprehension a {
+    width: 498px;
+    display: block;
+  }
+  #comprehension a:first-child {
+    margin-bottom: 10px;
+  }
+  .navbar #nav-tabs {
+    margin: 0;
+  }
+  .navbar ul {
+    display: block;
+  }
+  .navbar ul li a,
+  .navbar ul li.active a {
+    background: none;
+    display: block;
+  }
+  #nav-collapse.collapse {
+    display: none;
+  }
+  #nav-collapse {
+    display: block;
+    padding: 10px 0;
+  }
+  #nav-collapse ul {
+    position: relative;
+    right: 0;
+    top: 0;
+    margin: 0;
+  }
+  #nav-collapse ul li {
+    display: block;
+  }
+  ul#menu {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+  }
+  ul#menu a {
+    display: inline-block;
+    top: -2px;
+  }
+}

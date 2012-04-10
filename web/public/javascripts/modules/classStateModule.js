@@ -1,5 +1,50 @@
 $(function(){
 
+  RealTimeChart = function($el, innerID){
+    this.percentage = 0;
+    this.$container = $el;
+
+    this.$inner =  $('<div>').attr('id', innerID).addClass('rt-inner');
+    this.$text = $('<div>').addClass('rt-text');
+    this.updateText();
+    this.updateInnerWidth();
+    
+    this.$container.append( this.$inner );
+    this.$container.append( this.$text );
+
+
+  };
+
+  RealTimeChart.prototype.updateText = function(){
+    var str = String(this.percentage) + "%";
+    this.$text.text(str);
+  }
+
+  RealTimeChart.prototype.updateInnerWidth = function(){
+    //if we don't specifiy parent it will return 0 when hidden
+    var containerWidth = this.$container.parent().width();
+    var fraction = this.percentage / 100;
+    var innerWidth = Math.ceil(containerWidth * fraction);
+    
+    var _this = this;
+    this.$inner.animate({
+      width: innerWidth
+    }, 990, function(){
+      if(_this.sigToZero){
+        _this.$inner.css('border','none');
+      }
+      _this.sigToZero = false;
+    })
+    //this.$inner.css('width', innerWidth);
+  };
+
+  RealTimeChart.prototype.update = function(percentage){
+
+    this.percentage = percentage;
+    this.updateInnerWidth();
+    this.updateText();
+  };
+
   Comprehension = Backbone.Model.extend({
 
   });
@@ -19,8 +64,8 @@ $(function(){
       var confusion = this.comprehension.get('confusion');
       var understanding =  this.comprehension.get('understanding');
       if(this.$confusometer){
-        this.$confusometer.text(confusion);
-        this.$understandometer.text(understanding);
+        this.confusometer.update(confusion);
+        this.understandometer.update(understanding);
       }
 
     },
@@ -39,6 +84,10 @@ $(function(){
       this.$confusometer = this.$el.find('#confusometer');
       this.$understandometer = this.$el.find('#understandometer');
 
+      this.confusometer = new RealTimeChart(this.$confusometer, 'confusometer-inner');
+      this.understandometer = new RealTimeChart(this.$understandometer, 'understandometer-inner');
+
+      this.changeMeters();
       return this.$el;
     }
 
@@ -76,13 +125,20 @@ $(function(){
       })
     },
 
-    render : function(){
-      this.$el.html( this.template({}) );
-      $('#dashboard-button-header').append( this.$el );
+    render : function(isTeacher){
+      this.$el.html( this.template({isTeacher: isTeacher}) );
+      $('.tab-content').before( this.$el );
       this.$numStudents = this.$el.find('#numStudents');
       this.$active = this.$el.find('#active');
       this.changeState();
+      if(!isTeacher){
+        $('#teacherID').css('border-top-right-radius','5px');
+      }
       return this.$el;
+    },
+
+    addTeacherID : function(teacherID){
+      $('#teacherID').text(teacherID);
     }
 
   });
@@ -113,6 +169,7 @@ $(function(){
       if(studentsCanSeeComprehension && !_this.studentsCanSeeComprehension) {
         _this.studentsCanSeeComprehension = true;
         _this.comprehensionMeters.render('#dashboard-content');
+        _this.comprehensionMeters.changeMeters() ;
       }else if(!studentsCanSeeComprehension && _this.studentsCanSeeComprehension){
         _this.studentsCanSeeComprehension = false;
         _this.comprehensionMeters.remove();
@@ -125,13 +182,16 @@ $(function(){
   ClassStateModule.prototype.parentViewLoaded = function(){
     if(_this.isTeacher){
       _this.comprehensionMeters.render('#dashboard-content');
-      _this.state.render();
+      _this.state.render(_this.isTeacher);
+      
     }else{
+      _this.state.render(_this.isTeacher);
       if(_this.studentsCanSeeComprehension){
       _this.comprehensionMeters.render('#dashboard-content');
 
       }
     };
+    _this.state.addTeacherID(_this.teacherID);
   };
 
   ClassStateModule.prototype.connect = function(obj){
@@ -140,6 +200,8 @@ $(function(){
 
   ClassStateModule.prototype.connectInfo = function(obj){
     _this.studentsCanSeeComprehension = obj.settings.studentsCanSeeComprehension;
+    _this.teacherID = obj.teacherID;
+
   }
 
   ClassStateModule.prototype.lectureState = function(state){

@@ -32,6 +32,7 @@ $(function(){
   LoginModule.prototype.loadView = function(){
     _this.view = new AccountNavView({model : _this.user, el : '#account-nav'});
     _this.view.render();
+
   };
 
   LoginModule.prototype.initialized = function(obj){
@@ -41,6 +42,8 @@ $(function(){
       loggedIn : obj.loggedIn
     })    
   };
+
+
 
   new LoginModule();
 })

@@ -61,7 +61,7 @@ class Student
 class Teacher
   constructor: (@teacherID, @sendFunction) ->
     @settings =
-      studentsCanSeeComprehension : no
+      studentsCanSeeComprehension : yes
 
     @numTeachers = 0
 

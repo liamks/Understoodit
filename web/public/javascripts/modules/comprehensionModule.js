@@ -10,14 +10,45 @@ $(function(){
       'click #confused'   : 'confused'
     },
 
+    initialize: function(){
+      this.active = true;
+    },
+
     understood : function(evt){
-      app.events.trigger('understood', true);
+      if(this.active){
+        app.events.trigger('understood', true);
+        this.triggerNotification('understanding');
+        this.inactivateButtons();
+      }
+
       evt.preventDefault();
     },
 
     confused : function(evt){
-      app.events.trigger('confused', true);
+      if(this.active){
+        app.events.trigger('confused', true);
+        this.triggerNotification('confusion'); 
+        this.inactivateButtons();
+      }
+
       evt.preventDefault();
+    },
+
+    inactivateButtons : function(){
+      this.active = false;
+      var _this = this;
+      this.$el.find('a').addClass('inactive');
+      setTimeout(function(){
+        _this.active = true;
+        _this.$el.find('a').removeClass('inactive');
+      }, 8000);
+    },
+
+    triggerNotification: function(type){
+      var message = "Your " + type + " has been acknowledged!"
+      app.events.trigger('notification', {
+        message: message
+      });
     },
 
     render: function(){

@@ -65,7 +65,7 @@ $(function(){
       
       $(".tab-content").append(this.$el);
 
-      $(".nav-tabs").append($("<li>").append($("<a>").attr({
+      $("#nav-tabs").append($("<li>").append($("<a>").attr({
         'href' : '#settings',
         'data-toggle' : 'tab'
       }).text('Settings')))

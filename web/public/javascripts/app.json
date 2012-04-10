@@ -4,7 +4,8 @@
     "underscore",
     "bootstrap",
     "socket.io",
-    "backbone"
+    "backbone",
+    "raphael"
   ],
 
   "modules" : [
@@ -13,6 +14,8 @@
     "comprehensionModule",
     "classStateModule",
     "loginModule",
+    "tabsModule",
+    "notificationsModule",
     "settingsModule"
   ],
 

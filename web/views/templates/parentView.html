@@ -2,31 +2,38 @@
   <div class="navbar-inner">
     <div class="container">
       <a href="/" class="brand">understoodit</a>
-
-      <ul class="nav pull-right" id="account-nav">
-
+      <ul id="menu">
+        <li>
+          <a href="#">Menu</a>
+        </li>
       </ul>
+
+      <div id="nav-collapse" class="collapse">
+        <ul class="nav" id="nav-tabs">
+          <li class="active">
+            <a href="#dashboard">Dashboard</a>
+          </li>
+        </ul>
+
+        <ul class="nav pull-right" id="account-nav">
+
+        </ul>
+      </div>
+
     </div>
   </div>
 </div>
 <div class="container">
   <div id="notification-box">
-
-  </div>
-  
-  <ul class="nav nav-tabs">
-    <li>
-      <a href="#dashboard" data-toggle="tab">Dashboard</a>
-    </li>
-  </ul>
+    <div id="notification-message"></div>
+  </div
 
   <div class="row">
+
     <div class="tab-content">
 
       <div class="tab-page fade active" id="dashboard">
         <div class="span12">
-          <div id="dashboard-button-header">
-          </div>
           <div id="dashboard-content">
           </div>
         </div>
