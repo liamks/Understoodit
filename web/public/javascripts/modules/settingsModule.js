@@ -26,6 +26,10 @@ $(function(){
         studentsCanSeeComprehension : scsc
       });
 
+      app.events.trigger('notification', {
+        message: "Your new settings have been saved."
+      });
+
       var url = "/" + this.model.get('teacherID') + '/settings';
       var _this = this;
       $.post(url, this.model.toJSON())

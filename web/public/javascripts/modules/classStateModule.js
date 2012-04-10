@@ -87,6 +87,8 @@ $(function(){
       this.confusometer = new RealTimeChart(this.$confusometer, 'confusometer-inner');
       this.understandometer = new RealTimeChart(this.$understandometer, 'understandometer-inner');
 
+      //Without this if the class confusion is at 100% and teachers refreshes their page
+      //they will see a confusion of 0 until the confusion levels change
       this.changeMeters();
       return this.$el;
     }

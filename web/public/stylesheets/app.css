@@ -16,6 +16,10 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+}
+body,
+input,
+textarea {
   font-family: "VAG Rundschrift Light", sans-serif;
   font-size-adjust: 0.504;
   font-weight: 200;
@@ -225,6 +229,46 @@ div.meters .rt-text {
   display: block;
   background: #f00;
   border: 1px solid #500;
+}
+#settings .row {
+  border-bottom: 1px solid #ccc;
+}
+#settings .submit {
+  text-align: center;
+  padding: 20px;
+}
+#settings .submit input {
+  font-size: 200%;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 2px 10px;
+  line-height: 40px;
+  background: #eee;
+}
+#settings .submit input:hover {
+  border: 1px solid #aaa;
+  background: #ccc;
+}
+#settings h4 {
+  color: #1b75b9;
+  margin: 0 0 10px 0;
+}
+#settings p {
+  padding: 4px 0;
+  margin: 0;
+}
+#settings .span4 {
+  width: 300px;
+  display: inline-block;
+  padding: 10px 0;
+}
+#settings .span8 {
+  width: 200px;
+  display: inline-block;
+  padding: 10px 0;
+  vertical-align: top;
 }
 @media (min-width: 960px) {
   .container {
