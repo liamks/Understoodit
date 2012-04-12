@@ -5,7 +5,8 @@
     "bootstrap",
     "socket.io",
     "backbone",
-    "raphael"
+    "timeseries"
+
   ],
 
   "modules" : [

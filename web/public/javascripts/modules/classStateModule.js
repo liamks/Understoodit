@@ -29,7 +29,7 @@ $(function(){
     var _this = this;
     this.$inner.animate({
       width: innerWidth
-    }, 990, function(){
+    }, 600, function(){
       if(_this.sigToZero){
         _this.$inner.css('border','none');
       }
@@ -39,15 +39,18 @@ $(function(){
   };
 
   RealTimeChart.prototype.update = function(percentage){
+    if(this.percentage !== percentage){
+      this.percentage = percentage;
+      this.updateInnerWidth();
+      this.updateText();
+    }
 
-    this.percentage = percentage;
-    this.updateInnerWidth();
-    this.updateText();
   };
 
   Comprehension = Backbone.Model.extend({
 
   });
+
 
   ComprehensionMeters = Backbone.View.extend({
     id : 'comprehension-meters',
@@ -55,7 +58,13 @@ $(function(){
     template : _.template(templates['comprehension-meters']),
 
     initialize : function(){
-      this.comprehension = new Comprehension ({ understanding : 0 , confusion: 0 });
+      
+
+      this.comprehension = new Comprehension ({ 
+        understanding : 0 ,
+        time: (new Date()).getTime(),
+        confusion: 0 });
+
       this.comprehension.on('change', this.changeMeters, this);
     },
 
@@ -63,9 +72,12 @@ $(function(){
 
       var confusion = this.comprehension.get('confusion');
       var understanding =  this.comprehension.get('understanding');
+      var array;
+
       if(this.$confusometer){
         this.confusometer.update(confusion);
         this.understandometer.update(understanding);
+        this.timeSeries.addPoint(confusion, understanding, (new Date).getTime());
       }
 
     },
@@ -73,7 +85,8 @@ $(function(){
     updateMeters : function(state){
       this.comprehension.set({
           'understanding' : state.understanding,
-          'confusion'     : state.confusion
+          'confusion'     : state.confusion,
+          time: (new Date()).getTime()
       });
     },
 
@@ -87,6 +100,8 @@ $(function(){
       this.confusometer = new RealTimeChart(this.$confusometer, 'confusometer-inner');
       this.understandometer = new RealTimeChart(this.$understandometer, 'understandometer-inner');
 
+      this.timeSeries = new TimeSeries('real-time-graph');
+       
       //Without this if the class confusion is at 100% and teachers refreshes their page
       //they will see a confusion of 0 until the confusion levels change
       this.changeMeters();

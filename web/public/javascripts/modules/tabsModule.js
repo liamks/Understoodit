@@ -4,13 +4,20 @@ $(function(){
   TabsModule = function(){
     _this = this;
     this.addHandlers();
-    
+
     
   };
+
 
   TabsModule.prototype.addClickHandler = function(){
     _this.$navCollapse = $('#nav-collapse');
     _this.addMenuHandler();
+    $(".num-outer").each(function(){
+      $(this).tooltip({
+        title : $(this).attr('title')
+      })
+    })
+    
 
     $("#nav-tabs").on('click', 'a', function(evt){
       $('#nav-tabs li').removeClass('active');
@@ -19,8 +26,8 @@ $(function(){
       $tabPages.removeClass('active');
       $tabPages.hide();
       var id = $(this).attr('href');
-      $(id).addClass('active').show();
-      
+      $(id).addClass('active').fadeIn();
+
       _this.$navCollapse.addClass('collapse');
       evt.preventDefault();
     })
