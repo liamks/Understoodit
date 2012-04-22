@@ -1,2 +1,0 @@
-#!/bin/bash 
-foreman export upstart /etc/init -c connections=4,teachers=4,databases=
