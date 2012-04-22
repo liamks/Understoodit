@@ -101,7 +101,7 @@ $(function(){
       this.understandometer = new RealTimeChart(this.$understandometer, 'understandometer-inner');
 
       this.timeSeries = new TimeSeries('real-time-graph');
-       
+       $('#real-time-graph').tooltip({})
       //Without this if the class confusion is at 100% and teachers refreshes their page
       //they will see a confusion of 0 until the confusion levels change
       this.changeMeters();

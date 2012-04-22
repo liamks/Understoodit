@@ -11,11 +11,7 @@ module.exports = {
       settings : options.settings
     };
 
-    var meta = {
-      index : { email : properties.email }
-    }
-
-    db.save('users', options.screenName, properties, meta, cb);
+    db.save('users', options.screenName, properties, cb);
   },
 
   find: function(screenName, cb){
@@ -38,7 +34,6 @@ module.exports = {
         user[keys[i]] = newValues[keys[i]];
       };
 
-      meta.index = { email : data.email }
       db.save('users', screenName, user, meta, cb);
     });
     

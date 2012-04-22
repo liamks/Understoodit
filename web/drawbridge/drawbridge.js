@@ -19,12 +19,12 @@ User.prototype.authenticate = function(email, password, cb){
   var _this = this;
   this.findByEmail(email, function(err, data, meta){
     if(err){
-      cb('error',null);
+      cb('User not found by email',null);
     }else{
       var screenName = data[0];
       _this.find(screenName ,function(err,data){
         if(err){
-          cb('error',null);
+          cb('User not found by screenName',null);
         }else{
           if(bcrypt.compareSync(password, data.password)){
             data.screenName = screenName;
@@ -32,7 +32,7 @@ User.prototype.authenticate = function(email, password, cb){
             _this.data = data;
             cb(null, data);
           }else{
-            cb('error', null);
+            cb('Passwords do not match', null);
           }
         }
       });
@@ -54,8 +54,9 @@ User.prototype.find = function(screenName, cb){
 User.prototype.findByEmail = function(email, cb){
   var _this = this;
   this.db.findByEmail(email, function(err,data,meta){
+    console.log(err)
     _this.data = data;
-    _this.screenName = data[0];
+    _this.screenName = data ? data[0] : null;
     cb(err,data,meta);
   });
 }
@@ -113,11 +114,15 @@ DrawBridge.prototype.processLogin = function(req, res){
   var email = req.param('email', '');
   var password = req.param('password','');
   var user = new User()
+
+
   if(email === '' || password == ''){
     options.errors = ['Email and password must not be blank'];
     res.render('drawbridge/login', options);
   }else{
     user.authenticate(email, password, function(err,data){
+      console.log(err)
+      console.log(data)
       if(user.data){
         /* success! */
         req.session.user = user;
@@ -189,7 +194,7 @@ DrawBridge.prototype.createUser = function(options, error, succ){
 
   user.find(options.screenName, function(err, data){
 
-    if(!err.notFound){
+    if(data.screenName){
       /* Screen Name already taken */
       options.errors.push('Sorry, ' + options.screenName + ' is already taken.');
       error(options);
@@ -198,7 +203,7 @@ DrawBridge.prototype.createUser = function(options, error, succ){
       /* Screen Name not taken */
       user.findByEmail(options.email, function(err, data){
 
-        if(data.length !== 0){
+        if( data && data.screenName !== '' ){
 
           /* email already taken */
           options.errors.push('Sorry, that email is already registered at understoodit');
@@ -240,7 +245,7 @@ DrawBridge.prototype.processRegister = function(req, res){
   }
 
   if(options.errors.length > 0){
-    error();
+    error(options);
   }else{
     options.settings = {
       studentsCanSeeComprehension : false

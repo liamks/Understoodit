@@ -14,6 +14,20 @@ function TimeSeries(id){
   this.timePoints = [];
   this.pointsCounter = 0
   this.drawGrid();
+  this.confusionSum = 0;
+  this.understandingSum = 0;
+}
+
+
+
+TimeSeries.prototype.curve  = function(x1, y1, x2, y2, color){
+  
+
+  this.ctx.beginPath();
+  this.ctx.moveTo(x1, y1);
+  this.ctx.bezierCurveTo(x1 + 12, y1, x1 + 12, y2, x2, y2);
+  this.ctx.strokeStyle = color;
+  this.ctx.stroke();
 }
 
 TimeSeries.prototype.line = function(x1, y1, x2, y2, color){
@@ -33,7 +47,7 @@ TimeSeries.prototype.drawGrid = function(){
 
   this.ctx.font = "16pt 'VAG Rundschrift Light'"
   for (var i = 0; i < numLines; i++) {
-    this.line(0.5, y + 0.5, this.width , y + 0.5, '#bbb');
+    this.line(50, y + 0.5, this.width , y + 0.5, '#bbb');
 
     txt = String(labelValue - (20 * i)) + "%";
     this.ctx.fillText(txt, 5, y - 2);
@@ -86,7 +100,7 @@ TimeSeries.prototype.draw = function(array, isConfused, color){
 
       x2 = 2 * xInterval;
 
-  this.ctx.lineWidth = 2
+  this.ctx.lineWidth = 3
   for(var i = startI; i < array.length; i++, c++){
     y2 = array[i];
     
@@ -104,7 +118,7 @@ TimeSeries.prototype.draw = function(array, isConfused, color){
     if(i != startI){
       x1 = x2 - xInterval;
       y1 = array[i - 1];
-      this.line(x1, y1, x2, y2, color);
+      this.curve(x1, y1, x2, y2, color);
     }
 
     x2 += xInterval;
@@ -121,11 +135,16 @@ TimeSeries.prototype.drawAll = function(){
 }
 
 TimeSeries.prototype.addPoint = function(pointC, pointU, time){
+  this.confusionSum += pointC;
+  this.understandingSum += pointU;
+
   if(this.pointsCounter == 0){
 
-    this.confusedPoints.push( this.getY(pointC) );
-    this.understoodPoints.push( this.getY(pointU) );
+    this.confusedPoints.push( this.getY(this.confusionSum/60) );
+    this.understoodPoints.push( this.getY(this.understandingSum/60) );
     this.timePoints.push(time)
+    this.confusionSum = 0;
+    this.understandingSum = 0;
 
     if(this.timePoints.length > 40){
       this.confusedPoints.shift();
