@@ -1,0 +1,44 @@
+{
+  "superUser" : {
+    "email" : "admin@test.com",
+    "password" : "understoodit1981"
+  },
+
+  "authentication" : {
+    "enableScreenName" : true,
+    "termsOfService" : "termsOfService.txt",
+
+    "confirmationEmail" : {
+      "from" : "accounts@understoodit.com",
+      "subject" : "Understoodit account confirmation"
+    },
+
+    "forgotPassword" : {
+      "from" : "accounts@understoodit.com",
+      "subject" : "Understoodit Password Reset"
+    }
+  },
+
+  "db" : {
+    "type" : "redis"
+  },
+
+  "email" : {
+    "module" : "postmark",
+    "APIKEY" : "'57c81312-8357-4f70-a2dc-983929166c79'"
+  },
+
+  "signups" : {
+    "waitlist" : true,
+
+    "signUpEmail" : {
+      "from": "signup@understoodit.com",
+      "subject" : "Understoodit Signup!"
+    },
+
+    "inviteEmail" : {
+      "from" :  "accounts@understoodit.com",
+      "subject" : "Invited to join Understoodit"
+    }
+  }
+}
