@@ -5,7 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , drawbridge = require('./drawbridge/drawbridge')
+  , drawbridge = require('drawbridge')
   , RedisStore = require('connect-redis')(express)
   , uuid = require('node-uuid');
 
@@ -40,47 +40,18 @@ app.configure('production', function(){
 
 
 //Setup drawbridge.js
-drawbridge.up(app);
+drawbridge = drawbridge.up( app );
+drawbridge.afterLogin(function( response, user ){
+  response.redirect( '/' + user.screenName );
+});
+
+routes.drawbridge = drawbridge
 
 // Routes
 app.get('/', routes.index);
+app.get('/info', [ routes.getTeacher, routes.getSettings ], routes.info);
 
-// App
-var getUser = function(req, res, next){
-  var screenName = req.session.screenName;
-  var user = { teacherID : screenName }
-  if(req.session.user && req.session.user.loggedIn){
-    user.loggedIn = true;
-    user.email = req.session.user.email;
-
-    //Logged in
-    if( screenName === req.session.user.screenName ){
-      // Logged in and teacher
-
-    }else{
-      // Logged in but not the teacher
-      user.studentID = req.session.user.screenName;
-    }
-    
-  }else{
-    var newID = uuid.v4();
-    user.studentID = newID;
-    user.loggedIn = false;
-    req.session.user = user;
-  }
-
-  req.user = user;
-
-  next();
-}
-
-app.get('/info', getUser, routes.info);
-
-// temporary
-app.post('/signup', routes.signup);
-
-
-app.post('/:screenName/settings', getUser, routes.saveSettings );
+app.post('/:screenName/settings', [ routes.saveSettingsSetup ] ,routes.saveSettings );
 app.get('/:screenName', routes.understoodit );
 
 

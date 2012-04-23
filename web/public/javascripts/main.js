@@ -28,7 +28,7 @@
     _this = this;
 
     $.ajax({
-      url     : '/info',
+      url     : '/info?screenName=' + location.pathname.split('/')[1],
       success : _this.processInfo
     });
   };
