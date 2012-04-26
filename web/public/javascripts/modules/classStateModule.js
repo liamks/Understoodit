@@ -101,6 +101,8 @@ $(function(){
       this.understandometer = new RealTimeChart(this.$understandometer, 'understandometer-inner');
 
       this.timeSeries = new TimeSeries('real-time-graph');
+      $(window).resize($.proxy( this.timeSeries.windowResize, this.timeSeries ));
+
        $('#real-time-graph').tooltip({})
       //Without this if the class confusion is at 100% and teachers refreshes their page
       //they will see a confusion of 0 until the confusion levels change
@@ -149,7 +151,7 @@ $(function(){
       this.$active = this.$el.find('#active');
       this.changeState();
       if(!isTeacher){
-        $('#teacherID').css('border-top-right-radius','5px');
+        $('#teacherID').css('border-top-right-radius','4px');
       }
       return this.$el;
     },

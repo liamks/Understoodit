@@ -13,10 +13,8 @@ class Student
 
     if process.env.NODE_ENV is 'test'
       @CONFUSION_HALF_LIFE = 10 * 1000
-      @NO_CHANGE = 1
     else
-      @CONFUSION_HALF_LIFE = 2 * 60 * 1000
-      @NO_CHANGE = 20 * 1000
+      @CONFUSION_HALF_LIFE = 4 * 60 * 1000
 
   confused: (time) ->
     @confusionTime = time
@@ -33,16 +31,15 @@ class Student
     @confusionTime = 0
 
   decayFunction: (value, time) ->
+    return 0 if value is 0
+    
     delta = Date.now() - time
+    y = Math.cos( Math.PI * ( delta / @CONFUSION_HALF_LIFE) )
 
-    if delta > @NO_CHANGE
-
-      delta -= @NO_CHANGE
-
-      if delta > ( @CONFUSION_HALF_LIFE * 2 ) or value <= 0.01
-        value = 0
-      else
-        value = value * (1 / Math.pow( 2, delta/@CONFUSION_HALF_LIFE ))
+    if y > 0
+      value = y
+    else
+      value = 0
 
     value
 

@@ -10,22 +10,20 @@ var express = require('express')
   , uuid = require('node-uuid');
 
 
-var app = module.exports = express.createServer(
-  express.favicon()
-);
+var app = module.exports = express.createServer();
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'hasdfasdfasfdee35fr5 2347#$%><' , store: new RedisStore}));
+  app.use(express.session({ secret: 'hasUMdfasdurwqfasfdee35fr5 2347#$%><' , store: new RedisStore}));
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  //app.use(express.favicon(__dirname + '/public/favicon.ico',  { maxAge: 2592000000 }));
 
 });
 
@@ -49,6 +47,11 @@ routes.drawbridge = drawbridge
 
 // Routes
 app.get('/', routes.index);
+app.get('/contact/', routes.contact );
+app.get('/blog/', routes.blog );
+app.get('/blog/:articleID/', routes.blogArticle );
+
+
 app.get('/info', [ routes.getTeacher, routes.getSettings ], routes.info);
 
 app.post('/:screenName/settings', [ routes.saveSettingsSetup ] ,routes.saveSettings );

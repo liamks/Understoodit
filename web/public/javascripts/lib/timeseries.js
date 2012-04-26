@@ -2,7 +2,7 @@ function TimeSeries(id){
   this.$el = $('#' + id)
   this.canvas = document.getElementById(id);
   this.canvas.height = 300;
-  this.canvas.width = 958;
+  this.canvas.width = 956 ;
   this.height = this.$el.height();
   this.width = this.$el.width();
   this.topBorder = 25;
@@ -14,15 +14,42 @@ function TimeSeries(id){
   this.timePoints = [];
   this.pointsCounter = 0
   this.drawGrid();
+  this.windowResize( $(window).width() );
+
   this.confusionSum = 0;
   this.understandingSum = 0;
+  setTimeout($.proxy(this.drawAll, this), 40)
+}
+
+TimeSeries.prototype.windowResize = function(){
+  var windowWidth = $(window).width(),
+      oldWidth = this.width;
+
+  if( windowWidth > 700 && windowWidth < 960 ){
+    if(oldWidth !== 696 ){
+      this.updateWidth( 696 );
+    }
+
+  }else if( windowWidth < 700){
+    if( oldWidth !== 496 ){
+      this.updateWidth( 496 );
+    }
+  }else{
+    if( oldWidth !== 956 ){
+      this.updateWidth( 956 );
+    }
+  }
 }
 
 
+TimeSeries.prototype.updateWidth = function( width ){
+  this.ctx.clearRect(0, 0, this.width, this.height);
+  this.canvas.width = width;
+  this.width = width;
+  this.drawAll();
+}
 
 TimeSeries.prototype.curve  = function(x1, y1, x2, y2, color){
-  
-
   this.ctx.beginPath();
   this.ctx.moveTo(x1, y1);
   this.ctx.bezierCurveTo(x1 + 12, y1, x1 + 12, y2, x2, y2);
@@ -47,7 +74,7 @@ TimeSeries.prototype.drawGrid = function(){
 
   this.ctx.font = "16pt 'VAG Rundschrift Light'"
   for (var i = 0; i < numLines; i++) {
-    this.line(50, y + 0.5, this.width , y + 0.5, '#bbb');
+    this.line(50, y + 0.5, this.width , y + 0.5, '#ccc');
 
     txt = String(labelValue - (20 * i)) + "%";
     this.ctx.fillText(txt, 5, y - 2);

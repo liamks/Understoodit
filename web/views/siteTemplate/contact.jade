@@ -1,0 +1,15 @@
+
+div.contact-outer
+  div.contact
+    h1 Contact
+    p For all enquiries relating to understoodit please contact Liam at 
+      span#d
+
+
+script
+  (function() {
+    setTimeout(function(){
+      var a=document.createElement('a'),b="liam",c="@understoodit.com",s;a.href="mailto:"+b+c;a.textContent=b+c;s=document.getElementById('d');s.appendChild(a);
+    },200);
+
+  })();

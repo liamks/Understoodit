@@ -1,7 +1,6 @@
 form#signup(action="/signup", method="post")
-  input(type="text", name="email")
-  input#signup-submit(type="submit", value="Sign up!")
+  input(type="text", name="email", placeholder="Your Email Address", required=true)
+  input#signup-submit.btn(type="submit", value="Sign up!")
+#spinner
 
 
-script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-script(src="/javascripts/drawbridge/signup.js")

@@ -26,7 +26,7 @@ background-gradient(start, stop)
     width: 300px
     margin: 40px auto
     padding: 30px 20px
-    border-radius 5px
+    border-radius 4px
     border: 1px solid #ccc
 
 body
@@ -60,41 +60,47 @@ a
   .brand
     font-size: 30px
     color: #fff  
+    padding: 0 18px
+    background: url("/images/36.trans.png") no-repeat
+
 
   ul
     display inline-block
-    margin 0
+    margin 0 
     padding 0
     height 100%
 
+    li:first-child
+      margin-right -4px
+      a
+        border-left: 1px solid #046294 
+
     li
-      display inline-block
       list-style none
-      height 100%
+      display inline-block 
 
       a
+        line-height 30px
         display inline-block
-        background: #1B75B9;
-        height: 22px;
+        height: 29px
         padding: 12px 10px 0 10px;
         color: white;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
+        border-right: 1px solid #046294
+        box-shadow: inset 0 0 1px #fff;
 
     li.active
       a
-        background #444
+        background #046294
 
   .pull-right
     position absolute
-    right 15px
-    top: -3px
+    right 4px
+    top 0
+
 
   #nav-tabs
     margin-left 20px
-    height 100%
     position: relative
-    top: -3px
 
 div.meters
 
@@ -102,8 +108,7 @@ div.meters
   position: relative
   border: 1px solid #ccc
   background: whiteSmoke
-  border-radius: 2px
-  box-shadow: inset 0 0 6px #ccc;
+  border-radius: 4px
 
 div.meters .rt-text
   z-index: 10
@@ -135,7 +140,7 @@ div.meters .rt-text
 
 .rt-inner 
   height: 46px
-  border-radius: 2px
+  border-radius: 4px
 
 
 .tab-page
@@ -155,7 +160,7 @@ div.meters .rt-text
   padding: 4px 10px
   color: white
   font-size: 120%
-  border-top-left-radius: 5px;
+  border-top-left-radius: 4px;
 
 .num-outer
   display: inline-block
@@ -168,9 +173,10 @@ div.meters .rt-text
 
 #numStudents
   margin: 0 -4px
+  border-top-right-radius: 4px;
 #active
   background: #bbb
-  border-top-right-radius: 5px;
+  
 
 #comprehension
 
@@ -185,16 +191,16 @@ div.meters .rt-text
     border-radius: 4px
     color: #fff
     text-shadow: 1px 1px #444
-    box-shadow: inset 0 0 8px #fff;
+
 
   a:hover
     border: 1px solid #222
 
 #understood
-  background: green
+  background-gradient(#62C462, #51A351)
   
 #confused
-  background: red
+  background-gradient(#EE5F5B, #BD362F)
 
 #understood.inactive, #confused.inactive
   background: #777
@@ -242,16 +248,18 @@ div.meters .rt-text
     padding: 20px;
 
     input
-      font-size: 200%
+      font-size: 180%
       border: 1px solid #ccc
-      border-radius: 5px
-      padding: 2px 10px;
+      border-radius: 4px
+      padding: 0 10px;
       line-height: 40px;
       background: #eee
+      background-gradient(#eee, #ccc)
+      text-shadow: 1px 1px 1px white;
 
     input:hover
       border: 1px solid #aaa
-      background: #ccc
+
   h4
     color: #1B75B9
     margin: 0 0 10px 0
@@ -337,9 +345,7 @@ div.meters .rt-text
   text-align: center;
   text-decoration: none;
   background-color: #000000;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  border-radius 4px;
 
 .tooltip-arrow 
   position: absolute;
@@ -348,31 +354,30 @@ div.meters .rt-text
 
  
 #real-time-graph
-  border: 1px solid #bbb
+  border: 1px solid #ccc
   background: whitesmoke
   margin-top: 10px
   height: 300px
-  border-radius: 5px
+  border-radius: 4px
 
 @media (min-width: 960px)
-
 
   .container  
     width 960px
 
   .meter-outer
     width: 470px
-    display: inline-block
+    float: left
 
   .meter-outer:first-child
-    margin-right: 14px
+    margin-right: 18px
 
   #comprehension a
-    width: 466px
+    width: 468px
     display: inline-block
 
   #comprehension a:first-child
-    margin-right: 14px
+    margin-right: 15px
 
   #nav-collapse.collapse
     display:inline-block
@@ -384,18 +389,22 @@ div.meters .rt-text
 
 @media (min-width: 700px) and (max-width: 960px)
 
-    
-
   .container
-    width 100%
+    width 700px
 
   .meter-outer
-    width: 49%
-    display: inline-block
+    width: 340px
+    float: left
+
+  .meter-outer:first-child
+    margin-right: 18px
 
   #comprehension a
-    width: 49%
+    width: 338px
     display: inline-block
+    
+  #comprehension a:first-child
+    margin-right: 15px
 
   #nav-collapse.collapse
     display:inline-block
@@ -427,6 +436,11 @@ div.meters .rt-text
     li a, li.active a
       background: none
       display:block
+      border none
+      box-shadow none
+
+    li:first-child a
+      border none
 
   #nav-collapse.collapse
     display:none
@@ -455,8 +469,10 @@ div.meters .rt-text
     a
       display: inline-block
       top: -2px
-
-  
+      background #046294
+      border-right: 1px solid #046294
+      border-left: 1px solid #046294
+      box-shadow: inset 0 0 1px #fff;
 
 
 

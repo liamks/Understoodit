@@ -1,12 +1,26 @@
 doctype 5
 html(lang="en")
   head
-    title Understoodit - Measure Students' Understanding in Real-Time
+    title=title
     link(rel="stylesheet", href="http://f.fontdeck.com/s/css/D8Fz3XWt+VC0VDejQHe7Mks5Qzc/0.0.0.0/18157.css", type="text/css")
     link(rel='stylesheet', href='/stylesheets/style.css')
 
 
-  body!= body
+  body
+    div.header
+      div.container
+        a.brand(href="/") 
+
+        ul.site-nav
+          li
+            a(href="/contact/") Contact
+          li
+            a(href="http://blog.understoodit.com/") Blog
+    
+
+
+    div.container.site-body
+      != body
 
     if(production)
       script(type="text/javascript")
@@ -19,5 +33,3 @@ html(lang="en")
           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
-

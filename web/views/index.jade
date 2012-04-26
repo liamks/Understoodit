@@ -1,2 +1,74 @@
 
-h1 understoodit
+header
+  div.container(role="main")
+    ul.nav
+      li
+        a(href="/contact/") Contact
+      li
+        a(href="http://blog.understoodit.com/") Blog
+    hgroup
+      h1 understoodit
+      h2 Understand Your Students
+    div.brief
+      div#side-column
+        p.tagline Measure students' understanding in 
+          strong real-time.
+
+        p.interested  Interested? 
+          br 
+          | Sign up below to find out more.
+
+        div#form
+          != partial('drawbridge/signup/signup.jade',{})
+      div.video-column
+        div#video
+          iframe(src="http://player.vimeo.com/video/41031546", width="500", height="281", frameborder="0", webkitAllowFullScreen, mozallowfullscreen, allowFullScreen)
+
+div.container
+  div#social-media
+    
+
+    div#fb-root
+    script (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'))
+    div.fb-like(data-href="http://understoodit.com", data-send="false", data-layout="button_count", data-width="90", data-show-faces="false", data-font="verdana")
+
+    g:plusone(size="medium")
+
+    a(href="https://twitter.com/share", class="twitter-share-button", data-via="understoodit") Tweet
+
+
+div.container
+  div.meta.clearfix
+    div.col.span6.first
+      h3 The Problem
+      p During lectures it’s difficult for every student to indicate their understanding. Students are reluctant to express their confusion in large classes, which may limit their learning and their enjoyment of class. 
+
+    div.col.span6
+      h3 The Solution
+      p Understoodit addresses this issue by allowing students to anonymously, and in real-time, indicate if they understand, or are confused. Understoodit runs on devices that you and your students already own: smart-phones, tablets, netbooks and notebooks.
+
+  div.meta.clearfix
+    div.col.span6.first
+      h3 For Teachers
+      p Why wait until evaluations at the end of the term to find out your students were confused? With understoodit, you get feedback in real-time allowing you to make changes in your lecture to help students understand difficult topics.
+
+    div.col.span6
+      h3 For Students
+      p Understoodit allows you to annonymously and democratically inform the teacher that they're either confusing or doing a good job.
+
+footer(role="contentinfo")
+  div.container Copyright 2012.
+    nav
+      ul
+        li
+          a(href="/contact/") Contact
+        li
+          a(href="/blog/") Blog
+
+
+
+script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+script(src="/javascripts/drawbridge/signup.js")
+
+
+

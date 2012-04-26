@@ -13,7 +13,8 @@
     "connect-redis" : "1.3.0",
     "postmark"      : "0.1.6",
     "node-uuid"     : "1.3.3",
-    "drawbridge"    : "0.1.01"
+    "drawbridge"    : "0.1.01",
+    "jsdom"         : "0.2.14"
   },
   "engines" : { "node" : "0.6.13" },
   "scripts" : {

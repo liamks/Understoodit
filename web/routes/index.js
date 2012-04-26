@@ -6,7 +6,9 @@ var app = require('../app'),
 
 
 var tokenB = 'kwtpIq1N8/Sp6cYxEvpoQ1sG09FtodXjUb9aW+ahoM0=',
-    tokenBTeacher = 'ml5qmczfz6yovJJXr0L0BEO3Av7jMfanrggteFuwMxo=';
+    tokenBTeacher = 'ml5qmczfz6yovJJXr0L0BEO3Av7jMfanrggteFuwMxo=',
+    isProduction = process.env.NODE_ENV === 'production';
+
 
 var getTokens = function(tokenB){
   var data = Date.now().toString() + Math.random().toString();
@@ -24,8 +26,13 @@ var getTokens = function(tokenB){
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' })
+  res.render('index', { production: isProduction })
 };
+
+
+exports.contact = function(req, res){
+  res.render('siteTemplate/contact', { production: isProduction, title:'understoodit - Contact' })
+}
 
 
 exports.getTeacher = function(req, res, next){
@@ -73,17 +80,18 @@ exports.info = function(req, res){
     tokens = getTokens( tokenBTeacher );
   }else{
     tokens = getTokens( tokenB );
-    studentID = req.cookies["connect.sid"];
+    studentID = user ? user.screenName : req.cookies["connect.sid"];
   }
 
   options = {
     socketURL : (process.env.NODE_ENV === 'production') ? 'http://understoodit.com/ws' : 'http://0.0.0.0:5000',
-    loggedIn  : user === undefined,
+    loggedIn  : user !== undefined,
     teacherID : teacherID,
     studentID : studentID,
     tokenA    : tokens.tokenA,
     tokenC    : tokens.tokenC,
-    settings  : req.teacherSettings
+    settings  : req.teacherSettings,
+    email     : user ? user.email : ''
   }
 
   res.json( options );
