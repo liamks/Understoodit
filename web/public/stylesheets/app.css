@@ -152,7 +152,7 @@ div.meters .rt-text {
   padding: 4px 10px;
   color: #fff;
   font-size: 120%;
-  border-top-left-radius: 2px;
+  border-top-left-radius: 4px;
 }
 .num-outer {
   display: inline-block;
@@ -165,7 +165,7 @@ div.meters .rt-text {
 }
 #numStudents {
   margin: 0 -4px;
-  border-top-right-radius: 2px;
+  border-top-right-radius: 4px;
 }
 #active {
   background: #bbb;

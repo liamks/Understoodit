@@ -6,6 +6,13 @@
 
   "authentication" : {
     "enableScreenName" : true,
+
+    "restrictedScreenNames" : [ 
+      "login", "logout", "signin", "blog","legal",
+      "faq", "people", "hiring", "new", "contact", 
+      "about"
+    ],
+    
     "termsOfService" : "termsOfService.txt",
 
     "confirmationEmail" : {
@@ -25,7 +32,7 @@
 
   "email" : {
     "module" : "postmark",
-    "APIKEY" : "'57c81312-8357-4f70-a2dc-983929166c79'"
+    "APIKEY" : "57c81312-8357-4f70-a2dc-983929166c79"
   },
 
   "signups" : {
