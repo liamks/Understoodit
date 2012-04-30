@@ -4,6 +4,7 @@
   "dependencies" : {
     "hiredis"       : "0.1.14",
     "socket.io"     : "0.9.6",
+    "socket.io-client" :  "0.9.6",
     "redis"         : "0.7.1",
     "mocha"         : "0.14.1",
     "should"        : "0.6.0",

@@ -1,4 +1,4 @@
-/*! Socket.IO.js build:0.9.2, development. Copyright(c) 2011 LearnBoost <dev@learnboost.com> MIT Licensed */
+/*! Socket.IO.js build:0.9.6, development. Copyright(c) 2011 LearnBoost <dev@learnboost.com> MIT Licensed */
 
 /**
  * socket.io
@@ -22,7 +22,7 @@
    * @api public
    */
 
-  io.version = '0.9.2';
+  io.version = '0.9.6';
 
   /**
    * Protocol implemented.
@@ -1304,6 +1304,10 @@
       this.onConnect();
     }
 
+    if (packet.type == 'error' && packet.advice == 'reconnect') {
+      this.open = false;
+    }
+
     this.socket.onPacket(packet);
 
     return this;
@@ -1517,7 +1521,7 @@
         (!this.isXDomain() || io.util.ua.hasCORS)) {
       var self = this;
 
-      io.util.on(global, 'beforeunload', function () {
+      io.util.on(global, 'unload', function () {
         self.disconnectSync();
       }, false);
     }
@@ -1668,10 +1672,10 @@
       self.sessionid = sid;
       self.closeTimeout = close * 1000;
       self.heartbeatTimeout = heartbeat * 1000;
-      self.transports = io.util.intersect(
+      self.transports = transports ? io.util.intersect(
           transports.split(',')
         , self.options.transports
-      );
+      ) : self.options.transports;
 
       self.setHeartbeatTimeout();
 
@@ -1714,7 +1718,7 @@
         });
       }
 
-      connect(self.options.transports);
+      connect(self.transports);
 
       self.once('connect', function (){
         clearTimeout(self.connectTimeoutTimer);
@@ -2445,7 +2449,7 @@
    *
    * @api public
    */
-  
+
   exports.XHR = XHR;
 
   /**
@@ -2562,7 +2566,7 @@
   /**
    * Disconnects the established `XHR` connection.
    *
-   * @returns {Transport} 
+   * @returns {Transport}
    * @api public
    */
 
@@ -2620,7 +2624,11 @@
 
   XHR.check = function (socket, xdomain) {
     try {
-      if (io.util.request(xdomain)) {
+      var request = io.util.request(xdomain),
+          usesXDomReq = (global.XDomainRequest && request instanceof XDomainRequest),
+          socketProtocol = (socket && socket.options && socket.options.secure ? 'https:' : 'http:'),
+          isXProtocol = (socketProtocol != global.location.protocol);
+      if (request && !(usesXDomReq && isXProtocol)) {
         return true;
       }
     } catch(e) {}
@@ -2629,8 +2637,8 @@
   };
 
   /**
-   * Check if the XHR transport supports corss domain requests.
-   * 
+   * Check if the XHR transport supports cross domain requests.
+   *
    * @returns {Boolean}
    * @api public
    */
@@ -3063,8 +3071,9 @@
 
       form.className = 'socketio';
       form.style.position = 'absolute';
-      form.style.top = '-1000px';
-      form.style.left = '-1000px';
+      form.style.top = '0px';
+      form.style.left = '0px';
+      form.style.display = 'none';
       form.target = id;
       form.method = 'POST';
       form.setAttribute('accept-charset', 'utf-8');
