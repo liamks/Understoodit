@@ -153,5 +153,6 @@ exports.understoodit = function(req, res){
   if(options.environment === 'development'){
     options.jsIncludes = require('../public/javascripts/app.json');
   }
+  res.header('Access-Control-Allow-Origin','http://rt.understoodit.com');
   res.render('app/index', options);
 };
