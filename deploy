@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var exec = require('child_process').exec
+  , program = require('commander')
+  , config = require('./package.json')
+  , sys = require('sys');
+
+
+program
+  .version(config.version)
+  .option('-w, --web', 'deploy website')
+  .option('-t, --teacher', 'deploy teacher')
+  .option('-s, --socket', 'deploy socket')
+
+
+var path = program.args.shift() || '.',
+    webRoot = '/var/w/understoodit/web',
+    socketRoot = '/var/w/understoodit/socket',
+    teacherRoot = '/var/w/understoodit/teachers',
+    tempRoot = '/root/temp/',
+    appRoot = '/var/w/understoodit/';
+
+
+// Not doing anything now
+
+  if(program.web){
+
+  }
+
+
+  if(program.socket){
+
+  }
+
+
+  if(program.teacher){
+
+  }
+
+
+// install dependencies
+// run build script
+// copy files
+// start services
+
+exec('npm install', function(error, stdout, stderr){
+
+  if(error){
+    console.log('ERROR: ' + stderr);
+  }else{
+    console.log('npm install success');
+    
+    exec('node build', function(error, stdout, stderr){
+
+      if(error){
+        console.log('ERROR: ' + stderr );
+      }else{
+        console.log('node build success');
+
+        exec('cp -r ' + tempRoot + '* ' + appRoot, function(error, stdout, stderr){
+
+          if(error){
+            console.log('ERROR: ' + stderr);
+          }else{
+            console.log('copy file success');
+
+            exec('restart teachers && restart socket && restart web1 && restart web2')
+
+
+          }
+
+
+        })
+
+      }
+
+
+
+
+    })
+  }
+
+
+
+
+})
+
+
