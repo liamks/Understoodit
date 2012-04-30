@@ -22,7 +22,7 @@ var path = program.args.shift() || '.',
     socketRoot = '/var/w/understoodit/socket',
     teacherRoot = '/var/w/understoodit/teachers',
     tempRoot = '/root/temp/Understoodit',
-    appRoot = '/var/w/understoodit/';
+    appRoot = '/var/w/';
 
 
 // Not doing anything now
