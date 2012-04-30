@@ -7,7 +7,7 @@
 var exec = require('child_process').exec
   , program = require('commander')
   , config = require('./package.json')
-  , sys = require('sys');
+  , sys = require('util');
 
 
 program
