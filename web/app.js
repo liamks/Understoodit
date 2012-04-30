@@ -40,8 +40,18 @@ cache = {};
 
 
 function staticCaching( req, res, next ){
-  res.header("Access-Control-Allow-Origin", "*");
+
+  var origin = req.header('host')
+
+  if( origin ){
+    res.header("Access-Control-Allow-Origin", origin );
+    res.header('Access-Control-Allow-Credentials', 'true');
+  }else{
+    res.header("Access-Control-Allow-Origin", "*");
+  }
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+
   var url = req.url,
       encoding, ext;
 

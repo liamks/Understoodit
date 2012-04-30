@@ -153,7 +153,17 @@ exports.understoodit = function(req, res){
   if(options.environment === 'development'){
     options.jsIncludes = require('../public/javascripts/app.json');
   }
-  res.header("Access-Control-Allow-Origin", "*");
+
+  var origin = req.header('host')
+
+  if( origin ){
+    res.header("Access-Control-Allow-Origin", origin );
+    res.header('Access-Control-Allow-Credentials', 'true');
+  }else{
+    res.header("Access-Control-Allow-Origin", "*");
+  }
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+
   res.render('app/index', options);
 };

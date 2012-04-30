@@ -25,7 +25,7 @@ class ConnectionsServer
 
 
     @io.configure 'production', () =>
-      @io.set 'origins', "*"
+      @io.set 'origins', "http://understoodit.com"
       @io.set 'log level', 1
       @io.set 'close timeout', 5
       @io.set 'browser client', false
