@@ -154,14 +154,5 @@ exports.understoodit = function(req, res){
     options.jsIncludes = require('../public/javascripts/app.json');
   }
 
-  var origin = req.header('host')
-
-
-  res.header("Access-Control-Allow-Origin", origin );
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
-
   res.render('app/index', options);
 };

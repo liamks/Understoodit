@@ -41,15 +41,6 @@ cache = {};
 
 function staticCaching( req, res, next ){
 
-  var origin = req.header('host')
-
-
-  res.header("Access-Control-Allow-Origin", 'http://rt.understoodit.com');
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
-
   var url = req.url,
       encoding, ext;
 
