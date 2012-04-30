@@ -24,6 +24,12 @@ class ConnectionsServer
       #@io.set 'close timeout', 2
 
 
+    @io.configure 'production', () =>
+      @io.set 'origins', "*"
+      @io.set 'log level', 1
+      @io.set 'close timeout', 5
+      @io.set 'browser client', false
+
     @io.on 'connection', (socket) =>
 
       connection = new Connection socket
