@@ -84,7 +84,7 @@ exports.info = function(req, res){
   }
 
   options = {
-    socketURL : (process.env.NODE_ENV === 'production') ? 'http://understoodit.com/ws' : 'http://0.0.0.0:5000',
+    socketURL : (process.env.NODE_ENV === 'production') ? 'http://rt.understoodit.com/' : 'http://0.0.0.0:5000',
     loggedIn  : user !== undefined,
     teacherID : teacherID,
     studentID : studentID,
