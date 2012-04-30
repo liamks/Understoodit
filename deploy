@@ -47,7 +47,7 @@ var path = program.args.shift() || '.',
 // copy files
 // start services
 
-exec('npm install', function(error, stdout, stderr){
+exec('npm install && cd web && npm install && cd ..', function(error, stdout, stderr){
 
   if(error){
     console.log('ERROR: ' + stderr);
