@@ -1,4 +1,4 @@
-$(function(){
+(function(){
   var _this;
 
   
@@ -27,7 +27,7 @@ $(function(){
       this.childView.render()
       $('body').append(this.$el);
       app.events.trigger('parentView-loaded','');
-    },
+    }
 
   });
 
@@ -54,4 +54,4 @@ $(function(){
 
 
   new ParentViewModule();
-});
+}).call(this);

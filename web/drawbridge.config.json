@@ -10,9 +10,9 @@
     "restrictedScreenNames" : [ 
       "login", "logout", "signin", "blog","legal",
       "faq", "people", "hiring", "new", "contact", 
-      "about"
+      "about", "ws", "404"
     ],
-    
+
     "termsOfService" : "termsOfService.txt",
 
     "confirmationEmail" : {

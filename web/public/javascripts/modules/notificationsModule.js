@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
   var _this;
   NotificationsModule = function(){
@@ -24,4 +24,4 @@ $(function(){
   };
 
   new NotificationsModule();
-});
+}).call(this);

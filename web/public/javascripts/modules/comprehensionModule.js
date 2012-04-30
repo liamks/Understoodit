@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
 
   ComprehensionView = Backbone.View.extend({
@@ -86,4 +86,4 @@ $(function(){
 
 
   new ComprehensionModule();
-});
+}).call(this);

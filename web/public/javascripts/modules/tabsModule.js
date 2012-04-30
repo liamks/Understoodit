@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
   var _this;
   TabsModule = function(){
@@ -46,4 +46,4 @@ $(function(){
   };
 
   new TabsModule();
-})
+}).call(this);

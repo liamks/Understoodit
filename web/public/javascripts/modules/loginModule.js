@@ -1,4 +1,4 @@
-$(function(){
+(function(){
   User = Backbone.Model.extend({
     toJSON : function(){
       return {
@@ -22,6 +22,8 @@ $(function(){
   LoginModule = function(){
     _this = this;
     this.addHandlers();
+    _this.parentViewLoaded = false;
+    _this.connectInfoLoaded = false;
   };
 
   LoginModule.prototype.addHandlers = function(){
@@ -30,20 +32,28 @@ $(function(){
   };
 
   LoginModule.prototype.loadView = function(){
-    _this.view = new AccountNavView({model : _this.user, el : '#account-nav'});
-    _this.view.render();
+    _this.parentViewLoaded = true;
+    if(_this.connectInfoLoaded){
+      _this.view = new AccountNavView({model : _this.user, el : '#account-nav'});
+      _this.view.render();
+    }
 
   };
 
   LoginModule.prototype.initialized = function(obj){
+    _this.connectInfoLoaded = true;
     _this.user = new User({
       teacherID : obj.teacherID,
       email : obj.email,
       loggedIn : obj.loggedIn
-    })    
+    });
+
+    if(_this.parentViewLoaded){
+      _this.loadView();
+    }  
   };
 
 
 
   new LoginModule();
-})
+}).call(this);

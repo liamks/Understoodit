@@ -1,4 +1,6 @@
+;
 (function(win){
+
   var _this;
 
   BackboneApp = function(){
@@ -9,7 +11,7 @@
 
   BackboneApp.prototype.addHandlers = function(){
     this.events.on('initialized', function(){
-      $('#loading').fadeOut(1600, function(){
+      $('#loading').fadeOut(1000, function(){
         $(this).remove();
         _this.events.trigger('loading-done','')
       });
@@ -32,11 +34,10 @@
       success : _this.processInfo
     });
   };
-
   win.app = new BackboneApp();
+
+
 })(window);
 
 
-$(function(){
-  app.start();
-})
+

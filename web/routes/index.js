@@ -151,7 +151,7 @@ exports.understoodit = function(req, res){
   };
 
   if(options.environment === 'development'){
-    options.jsIncludes = require('../public/javascripts/app');
+    options.jsIncludes = require('../public/javascripts/app.json');
   }
   res.render('app/index', options);
 };

@@ -1,4 +1,5 @@
-$(function(){
+(function(){
+  console.log('socket')
   var _this;
   SocketModule = function(){
     this.addHandlers();
@@ -7,6 +8,7 @@ $(function(){
   };
 
   SocketModule.prototype.addHandlers = function(){
+
     app.events.on('connect-info', this.connect);
     app.events.on('understood', this.understood);
     app.events.on('confused', this.confused);
@@ -63,4 +65,4 @@ $(function(){
   }
 
   new SocketModule();
-});
+}).call(this);

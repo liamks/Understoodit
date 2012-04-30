@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
 
   Settings = Backbone.Model.extend({
@@ -114,4 +114,4 @@ $(function(){
 
   new SettingsModule();
 
-})
+}).call(this);

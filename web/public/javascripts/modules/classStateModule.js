@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
   RealTimeChart = function($el, innerID){
     this.percentage = 0;
@@ -229,4 +229,4 @@ $(function(){
   };
 
   new ClassStateModule();
-});
+}).call(this);

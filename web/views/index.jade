@@ -45,7 +45,7 @@ div.container
 
     div.col.span6
       h3 The Solution
-      p Understoodit addresses this issue by allowing students to anonymously, and in real-time, indicate if they understand, or are confused. Understoodit runs on devices that you and your students already own: smart-phones, tablets, netbooks and notebooks.
+      p Understoodit addresses this issue by allowing students to anonymously, and in real-time, indicate if they understand, or are confused. Understoodit runs on devices that you and your students already own: smartphones, tablets, netbooks and notebooks.
 
   div.meta.clearfix
     div.col.span6.first
@@ -54,7 +54,7 @@ div.container
 
     div.col.span6
       h3 For Students
-      p Understoodit allows you to annonymously, and democratically, inform the professor that you're either confused, or you understand. Giving your professor feedback allows them to improve their teaching, and your learning.
+      p Understoodit allows you to anonymously, and democratically, inform the professor that you're either confused, or you understand. Giving your professor feedback allows them to improve their teaching, and your learning.
 
 footer(role="contentinfo")
   div.container Copyright 2012.
@@ -68,7 +68,10 @@ footer(role="contentinfo")
 
 
 script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-script(src="/javascripts/drawbridge/signup.js")
+if(production)
+  script(src="/javascripts/drawbridge/signup.min.js")
+else
+  script(src="/javascripts/drawbridge/signup.js")
 
 
 
