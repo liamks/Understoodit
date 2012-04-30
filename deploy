@@ -68,7 +68,7 @@ exec('npm install && cd web && npm install && cd ..', function(error, stdout, st
           }else{
             console.log('copy file success');
 
-            exec('restart teachers && restart socket && restart web1 && restart web2')
+            exec('restart teachers1 && restart socket1 && restart web1 && restart web2')
 
 
           }
