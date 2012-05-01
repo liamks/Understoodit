@@ -90,21 +90,18 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({ secret: 'hasUMdfasdurwqfasfdee35fr5 2347#$%><' , store: new RedisStore}));
   app.use(require('stylus').middleware({ src: __dirname + '/public',compress :true }));
-  app.use(app.router);
-  
-  //app.use(gzippo.staticGzip(__dirname + '/public'));
   app.use(express.favicon(__dirname + '/public/favicon.ico',  { maxAge: 2592000000 }));
-
+  app.use(app.router);
+ 
 });
 
 app.configure('development', function(){
-
   app.use(express.static(__dirname + '/public'));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function(){
-    app.use(staticCaching)
+  app.use(staticCaching)
   app.use(express.static(__dirname + '/public'));
   app.use(express.errorHandler());
 });
