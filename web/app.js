@@ -86,7 +86,7 @@ function redirectWWW( req, res, next ){
   var host = req.header('host');
 
   if ( host.match(/^www/) !== null ) {
-    res.redirect('http://' + host.replace(/^www\./, '') + req.url);
+    res.redirect('http://' + host.replace(/^www\./, '') + req.url, 301 );
   } else {
     next();     
   }
