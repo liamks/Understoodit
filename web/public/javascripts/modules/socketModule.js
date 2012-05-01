@@ -23,6 +23,7 @@
 
   SocketModule.prototype.connect = function(info){
     _this.info = info;
+    console.log(info.socketURL + 'socket.io')
     _this.socket = io.connect(info.socketURL + 'socket.io');
     _this.addSocketHandlers();
   };
