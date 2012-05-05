@@ -33,7 +33,7 @@
         this.updateWidth( 766 );
       }
 
-    }else if( windowWidth =< 768){
+    }else if( windowWidth <= 768){
       if( oldWidth !== 478 ){
         this.updateWidth( 478 );
       }
