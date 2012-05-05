@@ -25,26 +25,29 @@
   }
 
   TimeSeries.prototype.windowResize = function(){
-    var windowWidth = $(window).width(),
+    var newWidth = $('.container').width(),
         oldWidth = this.width;
 
-    console.log('old width: ' + String(oldWidth))
-    console.log('new width: ' + String(windowWidth))
 
-    if( windowWidth >= 768 && windowWidth <= 980 ){
-      if(oldWidth !== 766 ){
-        this.updateWidth( 766 );
-      }
-
-    }else if( windowWidth < 768){
-      if( oldWidth !== 478 ){
-        this.updateWidth( 478 );
-      }
-    }else{
-      if( oldWidth !== 956 ){
-        this.updateWidth( 956 );
-      }
+    if( oldWidth !== newWidth ){
+      this.updateWidth( $('.container').width() - 2);
+      this.width = newWidth;
     }
+    
+    // if( windowWidth >= 768 && windowWidth <= 980 ){
+    //   if(oldWidth !== 758 ){
+    //     this.updateWidth( 758 );
+    //   }
+
+    // }else if( windowWidth < 768){
+    //   if( oldWidth !== 314 ){
+    //     this.updateWidth( 314 );
+    //   }
+    // }else{
+    //   if( oldWidth !== 956 ){
+    //     this.updateWidth( 956 );
+    //   }
+    // }
   }
 
 

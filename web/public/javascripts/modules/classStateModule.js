@@ -1,4 +1,5 @@
 (function(){
+  var isMobile = true;
 
   RealTimeChart = function($el, innerID){
     this.percentage = 0;
@@ -20,22 +21,25 @@
     this.$text.text(str);
   }
 
+  RealTimeChart.prototype.animate = function(width, ticks){
+   //custom animation
+  }
+
   RealTimeChart.prototype.updateInnerWidth = function(){
     //if we don't specifiy parent it will return 0 when hidden
     var containerWidth = this.$container.parent().width();
     var fraction = this.percentage / 100;
     var innerWidth = Math.ceil(containerWidth * fraction);
+
+    if(isMobile){
+      this.$inner.css('width', innerWidth);
+    }else{
+      this.$inner.clearQueue();
+      this.$inner.animate({
+        width: innerWidth
+      }, 900 );
+    }
     
-    var _this = this;
-    this.$inner.animate({
-      width: innerWidth
-    }, 600, function(){
-      if(_this.sigToZero){
-        _this.$inner.css('border','none');
-      }
-      _this.sigToZero = false;
-    })
-    //this.$inner.css('width', innerWidth);
   };
 
   RealTimeChart.prototype.update = function(percentage){
@@ -103,10 +107,17 @@
       this.timeSeries = new TimeSeries('real-time-graph');
       $(window).resize($.proxy( this.timeSeries.windowResize, this.timeSeries ));
 
-       $('#real-time-graph').tooltip({})
+      $(window).resize($.proxy( this.confusometer.updateInnerWidth, this.confusometer));
+      $(window).resize($.proxy( this.understandometer.updateInnerWidth,this.understandometer ));
+
+      if(!isMobile){
+        $('#real-time-graph').tooltip({});
+      }
+       
       //Without this if the class confusion is at 100% and teachers refreshes their page
       //they will see a confusion of 0 until the confusion levels change
       this.changeMeters();
+
       return this.$el;
     }
 
@@ -214,6 +225,7 @@
   };
 
   ClassStateModule.prototype.connect = function(obj){
+    isMobile = obj.isMobile;
     _this.isTeacher = obj.isTeacher;
   };
 

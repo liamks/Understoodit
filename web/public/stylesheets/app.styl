@@ -118,7 +118,7 @@ div.meters .rt-text
   top: 5px
   width: 100%
   font-size: 160%
-  font-weight: bold
+
   text-shadow: 0px 1px 1px #EEE
 
 
@@ -391,20 +391,21 @@ div.meters .rt-text
 
 
 
-@media (min-width: 768px) and (max-width: 980px)
+@media (min-width: 768px) and (max-width: 979px)
+
 
   .container
-    width 768px
+    width 758px
 
   .meter-outer
-    width: 375px
+    width: 370px
     float: left
 
   .meter-outer:first-child
     margin-right: 18px
 
   #comprehension a
-    width: 373px
+    width: 368px
     float: left
     
   #comprehension a:first-child
@@ -417,20 +418,48 @@ div.meters .rt-text
     display:inline-block
 
 
+
+
 @media (max-width: 767px)
 
-  .container
-    width 480px
-  
+
   .meter-outer
-    width 480px
+    width: 48%
+    float: left
+
+  .meter-outer:first-child
+    margin-right: 4%
 
   #comprehension a
-    width: 478px
+    width: 48%
+    float: left
+    
+  #comprehension a:first-child
+    margin-right: 3.3%
+
+  #nav-collapse.collapse
+    display:inline-block
+
+  #nav-collapse
+    display:inline-block
+
+
+
+@media (max-width: 420px)
+
+
+  
+  .meter-outer
+    display:block
+    width: 100%
+
+  #comprehension a
     display: block
+    width: 100%
 
   #comprehension a:first-child
     margin-bottom: 10px
+
 
   .navbar #nav-tabs
     margin: 0

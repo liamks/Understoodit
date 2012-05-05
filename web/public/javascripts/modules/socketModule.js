@@ -1,11 +1,18 @@
 (function(){
-  console.log('socket')
+
   var _this;
   SocketModule = function(){
     this.addHandlers();
     _this = this;
     this.initialized = false;
   };
+
+
+  SocketModule.prototype.isMobile = function(){
+    var agent = navigator.userAgent;
+
+    return /iPad|iPhone|Android|webOS|mobile|BlackBerry|PlayBook/.test(agent);
+  }
 
   SocketModule.prototype.addHandlers = function(){
 
@@ -37,7 +44,8 @@
     if(!_this.initialized){
       var obj = {
         loggedIn : _this.info.loggedIn,
-        isTeacher : _this.info.studentID === undefined
+        isTeacher : _this.info.studentID === undefined,
+        isMobile : _this.isMobile()
       }
       app.events.trigger('initialized', obj);
     }
