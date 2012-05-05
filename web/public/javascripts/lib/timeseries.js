@@ -28,12 +28,12 @@
     var windowWidth = $(window).width(),
         oldWidth = this.width;
 
-    if( windowWidth > 768 && windowWidth < 1024 ){
+    if( windowWidth > 768 && windowWidth < 980 ){
       if(oldWidth !== 766 ){
         this.updateWidth( 766 );
       }
 
-    }else if( windowWidth < 768){
+    }else if( windowWidth =< 768){
       if( oldWidth !== 478 ){
         this.updateWidth( 478 );
       }
