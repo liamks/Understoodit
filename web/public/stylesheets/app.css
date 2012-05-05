@@ -74,14 +74,14 @@ div.meters .rt-text{z-index:10;text-align:center;position:absolute;top:5px;width
 #nav-collapse.collapse{display:inline-block}
 #nav-collapse{display:inline-block}
 }#comprehension a{display:block}
-@media (min-width: 768px) and (max-width: 1024px){.container{width:768px}
+@media (min-width: 768px) and (max-width: 980px){.container{width:768px}
 .meter-outer{width:375px;float:left}
 .meter-outer:first-child{margin-right:18px}
 #comprehension a{width:373px;float:left}
 #comprehension a:first-child{margin-right:18px}
 #nav-collapse.collapse{display:inline-block}
 #nav-collapse{display:inline-block}
-}@media (max-width: 768px){.container{width:480px}
+}@media (max-width: 767px){.container{width:480px}
 .meter-outer{width:480px}
 #comprehension a{width:478px;display:block}
 #comprehension a:first-child{margin-bottom:10px}
