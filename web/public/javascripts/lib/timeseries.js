@@ -1,5 +1,5 @@
 
-(function(){
+(function(){ 
 
   function TimeSeries(id){
     this.$el = $('#' + id)
@@ -28,14 +28,14 @@
     var windowWidth = $(window).width(),
         oldWidth = this.width;
 
-    if( windowWidth > 700 && windowWidth < 960 ){
-      if(oldWidth !== 696 ){
-        this.updateWidth( 696 );
+    if( windowWidth > 768 && windowWidth < 1024 ){
+      if(oldWidth !== 766 ){
+        this.updateWidth( 766 );
       }
 
-    }else if( windowWidth < 700){
-      if( oldWidth !== 496 ){
-        this.updateWidth( 496 );
+    }else if( windowWidth < 768){
+      if( oldWidth !== 478 ){
+        this.updateWidth( 478 );
       }
     }else{
       if( oldWidth !== 956 ){
