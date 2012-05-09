@@ -1,0 +1,59 @@
+<form id="profile" action="">
+  <div class="row">
+
+    <div class="span4">
+      <label for="fullname">Full Name</label>
+    </div>
+    <div class="span8">
+      <input type="text" name="fullname" value="<%= fullname %>">
+    </div>
+    
+  </div>
+
+  <div class="row">
+
+    <div class="span4">
+      <label for="organizationType">Type of Organization</label>
+    </div>
+    
+    <div class="span8">
+      <select name="organizationType">
+        <option value="-1">Pick A Type:</option>
+        <option value="0">Grades 1 - 6</option>
+        <option value="1">Grades 7 - 12</option>
+        <option value="2">University</option>
+        <option value="3">Community College</option>
+        <option value="4">Government</option>
+        <option value="5">Corporate</option>
+        <option value="6">Other</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="span4">
+      <label for="organizationName">Name of School/Organization:</label>
+    </div>
+
+    <div class="span8">
+      <input  type="text" name="organizationName" value="<%= organizationName %>" >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span4">
+      <label for="organizationSubject">Subject/Department (if in education):</label>
+    </div>
+    
+    <div class="span8">
+      <input  type="text" name="organizationSubject" value="<%= organizationSubject %>">
+    </div>
+    
+  </div>
+
+  <div class="submit">
+    <input type="submit" value="Save">
+  </div>
+
+</form>

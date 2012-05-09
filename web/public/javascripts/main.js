@@ -37,6 +37,9 @@
   win.app = new BackboneApp();
 
 
+  $('body').on('click', '#nav-tabs a', function(evt){
+    $('.nav-tabs .active').removeClass('active');
+  })
 })(window);
 
 

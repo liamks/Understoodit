@@ -1,7 +1,10 @@
 
 <% if (loggedIn){ %>
  <li>
-    <a href="/#"><%= email %></a>
+    <a href="#" id="userProfileNav" >
+      <span id="navEmail"><%= email %></span>
+      <span id="navProfile">Profile</span>
+    </a>
   </li>
   <li>
     <a href="/logout">Logout</a>

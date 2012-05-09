@@ -1,7 +1,7 @@
 div.center
   h1 Sign in
 
-  form(action='/login', method="POST")
+  form#login(action='/login', method="POST")
     input(type="hidden", name="token", value=token)
 
     -if(errors.length > 0)

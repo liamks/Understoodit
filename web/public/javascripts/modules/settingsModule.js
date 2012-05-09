@@ -8,7 +8,7 @@
       }
     }
   });
-
+ 
 
   SettingsView = Backbone.View.extend({
     template : _.template( templates['settings'] ),

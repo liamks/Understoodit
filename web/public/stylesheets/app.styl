@@ -240,7 +240,19 @@ div.meters .rt-text
   background: red
   border: 1px solid #500
 
-#settings
+
+
+
+#settings, #userProfile
+  input[type=text]
+    width: 200px
+    font-size: 100%
+    padding: 2px
+
+  select
+    width: 206px
+    font-size: 100%
+
   .row
     border-bottom: 1px solid #ccc
 
@@ -280,6 +292,11 @@ div.meters .rt-text
     display:inline-block
     padding: 10px 0
     vertical-align: top
+
+
+
+#userProfile .row
+  border-bottom: none
 
 .tooltip 
   position: absolute;
@@ -389,10 +406,19 @@ div.meters .rt-text
 #comprehension a
   display: block
 
+span#navProfile
+  display:none
 
+span#navEmail
+  display:inline;
 
 @media (min-width: 768px) and (max-width: 979px)
+  
+  span#navProfile
+    display:none
 
+  span#navEmail
+    display:inline;
 
   .container
     width 758px
@@ -421,7 +447,11 @@ div.meters .rt-text
 
 
 @media (max-width: 767px)
+  span#navProfile
+    display:inline
 
+  span#navEmail
+    display:none;
 
   .meter-outer
     width: 48%
@@ -446,7 +476,11 @@ div.meters .rt-text
 
 
 @media (max-width: 420px)
+  span#navProfile
+    display:none
 
+  span#navEmail
+    display:inline;
 
   
   .meter-outer

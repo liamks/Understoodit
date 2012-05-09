@@ -52,6 +52,7 @@ function staticCaching( req, res, next ){
       if( /gzip/.test(encoding) ){
 
         // Cache-Control: max-age=300
+        // only do cache-control when each js has unique name
         res.header('Accept-Encoding','Vary')
         ext = url.match(/(js|css)/);
         if(ext[0] === 'js'){
@@ -149,6 +150,7 @@ checkIfUserExists = function( req, res, next ){
 
   redis.hexists('screenNames', req.params.screenName, function(error, result){
     if(error || !result){
+      //blitz.io code
       if(req.params.screenName === 'mu-3306f89e-65c42ce5-c454a54b-c24f931e'){
         res.send('42');
       }else{
@@ -163,7 +165,7 @@ checkIfUserExists = function( req, res, next ){
 
 app.get('/:screenName', [ checkIfUserExists ], routes.understoodit );
 
-
+app.post('/:screenName/profile', [ routes.saveProfileSetup ], routes.saveProfile )
 
 
 app.listen(port);

@@ -17,7 +17,8 @@
     "loginModule",
     "tabsModule",
     "notificationsModule",
-    "settingsModule"
+    "settingsModule",
+    "profileModule"
   ],
 
   "templates" : [

@@ -74,10 +74,18 @@ exports.info = function(req, res){
       teacherID = req.teacher.screenName,
       studentID,
       options,
-      tokens;
+      tokens, profile;
 
   if( user && user.screenName === teacherID ){
     tokens = getTokens( tokenBTeacher );
+
+    profile = {
+      fullname : user.fullname,
+      organizationType : user.organizationType,
+      organizationName : user.organizationName,
+      organizationSubject  : user.organizationSubject 
+    };
+
   }else{
     tokens = getTokens( tokenB );
     studentID = user ? user.screenName : req.cookies["connect.sid"];
@@ -91,7 +99,8 @@ exports.info = function(req, res){
     tokenA    : tokens.tokenA,
     tokenC    : tokens.tokenC,
     settings  : req.teacherSettings,
-    email     : user ? user.email : ''
+    email     : user ? user.email : '',
+    profile : profile
   }
 
   res.json( options );
@@ -156,3 +165,54 @@ exports.understoodit = function(req, res){
 
   res.render('app/index', options);
 };
+
+
+exports.saveProfileSetup = function( req, res, next ){
+  var setup = {
+    currentUser : _this.drawbridge.currentUser( req ),
+    screenName : req.params.screenName
+  };
+
+  if( setup.currentUser && setup.currentUser.screenName === setup.screenName ){
+    req.setup = setup;
+    next();
+  }else{
+    res.json('', 404);
+  }
+}
+
+exports.saveProfile = function( req, res, next ){
+  /*
+    Grades 1 - 6
+    Grades 7, 8
+    Grades 9 - 12
+    University
+    Community College
+    Government
+    Corporate
+    Other
+  */
+  var profile = {
+    fullname : req.param('fullname'),
+    organizationType : req.param('organizationType'),
+    organizationName : req.param('organizationName'),
+    organizationSubject : req.param('organizationSubject'),
+  }
+
+
+  redis.hmset( req.setup.currentUser.email, profile, function( error, result ){
+
+    if(error){
+      res.json('Database error', 404);
+    }else{
+
+      req.session.user.fullname = profile.fullname;
+      req.session.user.organizationType = profile.organizationType;
+      req.session.user.organizationName = profile.organizationName;
+      req.session.user.organizationSubject = profile.organizationSubject;
+
+      res.json('');
+    }
+  });
+
+}

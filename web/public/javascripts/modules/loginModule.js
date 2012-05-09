@@ -36,6 +36,7 @@
     if(_this.connectInfoLoaded){
       _this.view = new AccountNavView({model : _this.user, el : '#account-nav'});
       _this.view.render();
+      app.events.trigger('loginModule-loaded');
     }
 
   };
