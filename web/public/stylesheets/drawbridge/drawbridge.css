@@ -31,9 +31,9 @@ div.center form ul{
 div.center #confirmation{
   text-align: left;
   margin: 10px auto;
-  width: 300px;
+  width: 330px;
   padding: 10px;
-  
+  box-shadow: 3px 3px 4px #aaa;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
