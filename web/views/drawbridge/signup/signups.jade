@@ -15,7 +15,7 @@ form(action='/admin/invite-signup', method='post')
         th
         th Email
         th Sign up Time
-        th Request URL
+        th.last Request URL
     tbody
       each signup in signups
         tr
@@ -23,4 +23,8 @@ form(action='/admin/invite-signup', method='post')
             input(type="checkbox", name='person', value=signup.email)
           td= signup.email
           td= new Date(signup.wl_time)
-          td= signup.wl_requestURL
+          if(signup.wl_requestURL )
+            td
+              a(href=signup.wl_requestURL)=signup.wl_requestURL.substring(0, 40) + '...'
+          else
+            td= signup.wl_requestURL 
