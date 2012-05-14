@@ -412,6 +412,27 @@ span#navProfile
 span#navEmail
   display:inline;
 
+
+a.img-nav-tabs
+  margin-bottom: -10px
+  width: 30px
+  height: 32px
+
+
+a#home
+  background: url("/images/home_white.png") no-repeat 8px
+
+li.active
+  a#home
+    background: #046294 url("/images/home_white.png") no-repeat 8px
+
+a#settingsTab
+  background: url("/images/gear_white.png") no-repeat 8px
+
+li.active
+  a#settingsTab
+    background: #046294 url("/images/gear_white.png") no-repeat 8px
+
 @media (min-width: 768px) and (max-width: 979px)
   
   span#navProfile
@@ -501,14 +522,25 @@ span#navEmail
   .navbar ul
     display: block
 
-    li a, li.active a
-      background: none
+
+    li a, li.active a, li a#home.img-nav-tabs, li a#home.img-nav-tabs.active, a#settingsTab.img-nav-tabs, li a#settingsTab.img-nav-tabs.active
       display:block
       border none
       box-shadow none
 
     li:first-child a
       border none
+
+  a#home, li.active a#home
+    background: url("/images/home_white.png") no-repeat 8px
+    height: 46px
+
+  a#settingsTab, li.active a#settingsTab
+    background: url("/images/gear_white.png") no-repeat 8px
+    height: 46px
+
+
+
 
   #nav-collapse.collapse
     display:none

@@ -79,6 +79,11 @@ div.meters .rt-text{z-index:10;text-align:center;position:absolute;top:5px;width
 }#comprehension a{display:block}
 span#navProfile{display:none}
 span#navEmail{display:inline}
+a.img-nav-tabs{margin-bottom:-10px;width:30px;height:32px}
+a#home{background:url("/images/home_white.png") no-repeat 8px}
+li.active a#home{background:#046294 url("/images/home_white.png") no-repeat 8px}
+a#settingsTab{background:url("/images/gear_white.png") no-repeat 8px}
+li.active a#settingsTab{background:#046294 url("/images/gear_white.png") no-repeat 8px}
 @media (min-width: 768px) and (max-width: 979px){span#navProfile{display:none}
 span#navEmail{display:inline}
 .container{width:758px}
@@ -103,8 +108,10 @@ span#navEmail{display:inline}
 #comprehension a:first-child{margin-bottom:10px}
 .navbar #nav-tabs{margin:0}
 .navbar ul{display:block;}
-.navbar ul li a,.navbar ul li.active a{background:none;display:block;border:none;box-shadow:none}
+.navbar ul li a,.navbar ul li.active a,.navbar ul li a#home.img-nav-tabs,.navbar ul li a#home.img-nav-tabs.active,.navbar ul a#settingsTab.img-nav-tabs,.navbar ul li a#settingsTab.img-nav-tabs.active{display:block;border:none;box-shadow:none}
 .navbar ul li:first-child a{border:none}
+a#home,li.active a#home{background:url("/images/home_white.png") no-repeat 8px;height:46px}
+a#settingsTab,li.active a#settingsTab{background:url("/images/gear_white.png") no-repeat 8px;height:46px}
 #nav-collapse.collapse{display:none}
 #nav-collapse{display:block;padding:10px 0;}
 #nav-collapse ul{position:relative;right:0;top:0;margin:0;}

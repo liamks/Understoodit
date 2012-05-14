@@ -219,6 +219,9 @@ describe "Teachers", () ->
       pub.publish chnl, msg
       done()
 
+    beforeEach ->
+      sub.unsubscribe()
+
     it "Should be broadcast to one teacher, with 0 students", (done) ->
       sub.subscribe teacher1.teacherID
       statesReceived = 0
@@ -226,7 +229,9 @@ describe "Teachers", () ->
       handleLectureState = (channel, msg) ->
         message = JSON.parse msg
 
+
         if message.action is 'lecture state'
+
           message.numStudents.should.equal 0
           statesReceived += 1
           if statesReceived is 3
@@ -267,6 +272,7 @@ describe "Teachers", () ->
       
 
     it "Should be broadcast to one teacher with 1 student", (done) ->
+
       sub.subscribe teacher1.teacherID
 
       # Connect student

@@ -92,7 +92,11 @@
   }
 
   Profile.prototype.loadView = function(){
-    _this.view.render();
+    _this.parentLoaded = true;
+    if( _this.hasConnectInfo ){
+      _this.view.render();
+    }
+    
   }
 
 
@@ -102,6 +106,10 @@
     _this.teacherID = info.teacherID;
     _this.profile = new ProfileModel( info.profile );
     _this.view = new ProfileView({ model : _this.profile });
+    _this.hasConnectInfo = true;
+    if(_this.parentLoaded){
+      _this.view.render();
+    }
   }
 
   new Profile();

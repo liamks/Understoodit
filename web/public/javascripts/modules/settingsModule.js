@@ -71,8 +71,10 @@
 
       $("#nav-tabs").append($("<li>").append($("<a>").attr({
         'href' : '#settings',
-        'data-toggle' : 'tab'
-      }).text('Settings')))
+        'data-toggle' : 'tab',
+        'id' : 'settingsTab',
+        'class' : 'img-nav-tabs'
+      })))
 
       this.addFormHandlers();
       return this.$el
@@ -93,7 +95,8 @@
   };
 
   SettingsModule.prototype.loadView = function(){
-    if(_this.isTeacher){
+    _this.parentLoaded = true
+    if(_this.isTeacher && _this.hasConnectInfo){
       _this.view.render();
     };
   };
@@ -110,6 +113,10 @@
     info.settings.teacherID = info.teacherID;
     _this.settings = new Settings(info.settings);
     _this.view = new SettingsView({ model : _this.settings })
+    _this.hasConnectInfo = true;
+    if(_this.parentLoaded && _this.isTeacher){
+      _this.view.render();
+    }
   };
 
   new SettingsModule();

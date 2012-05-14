@@ -79,12 +79,15 @@ class Teacher
       state = @getLectureState()
 
       state.action = 'lecture state'
+
       @send  @teacherID, state
 
       if @settings.studentsCanSeeComprehension
+
         state2 = _.clone state
         delete state2.numStudents
         delete state2.active
+
         @send @studentChannel, state2
 
     , @stateIntervalTime 
