@@ -36,6 +36,7 @@
 
   SocketModule.prototype.socketConnnected = function(){
     _this.info.screenName = location.pathname.substr(1);
+    console.log('Socket Connected (init).');
     _this.socket.emit('init', _this.info);
   };
 
@@ -47,6 +48,7 @@
         isTeacher : _this.info.studentID === undefined,
         isMobile : _this.isMobile()
       }
+      console.log('Socket Initialized (initialized)')
       app.events.trigger('initialized', obj);
     }
     _this.initialized = true;

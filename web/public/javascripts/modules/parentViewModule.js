@@ -26,6 +26,7 @@
       this.$el.html( this.template({}) );
       this.childView.render()
       $('body').append(this.$el);
+      console.log('ParentView Loaded.');
       app.events.trigger('parentView-loaded','');
     }
 
