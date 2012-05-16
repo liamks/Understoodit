@@ -2,7 +2,8 @@
   "superUser" : {
     "email" : "admin@test.com",
     "password" : "understoodit1981",
-    "stage" : "4"
+    "stage" : "4",
+    "screenName" : "admin"
   },
 
   "authentication" : {

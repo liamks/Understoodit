@@ -54,10 +54,37 @@
     _this.initialized = true;
   }
 
+  SocketModule.prototype.socketInitializedFailed = function(){
+    if( $('#loading').length !== 0 ){
+      $('#loading div')
+        .text( "Connection Error, try again later. ")
+        .css({'color' : 'red'})
+    }
+  }
+
+  SocketModule.prototype.socketReconnecting = function(){
+    app.events.trigger('notification', {
+      message: "A connection error has occured. Reconnecting...",
+      classTag : 'error',
+      duration : 6000
+    });
+  }
+
+  SocketModule.prototype.connectFailed = function(){
+    if( $('#loading').length !== 0 ){
+      $('#loading div')
+        .text( "Could not connect! Could you try again later?")
+        .css({'color' : 'red'})
+    }
+  }
+
   SocketModule.prototype.addSocketHandlers = function(){
     this.socket.on('connect', this.socketConnnected);
     this.socket.on('initialized', this.socketInitialized);
+    this.socket.on('initialized-fail', this.socketInitializedFailed );
     this.socket.on('message', this.messageReceived);
+    this.socket.on('reconnecting', this.socketReconnecting)
+    this.socket.on('error', this.connectFailed );
   };
 
 

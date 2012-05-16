@@ -1,14 +1,29 @@
 doctype 5
 html(lang="en")
   head
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
     title Understoodit - Measure Students' Understanding in Real-Time
-
-
+    
+    if production
+      meta(name="font", href="http://f.fontdeck.com/s/css/D8Fz3XWt+VC0VDejQHe7Mks5Qzc/understoodit.com/18157.css")
+    else
+      meta(name="font", href="http://f.fontdeck.com/s/css/D8Fz3XWt+VC0VDejQHe7Mks5Qzc/0.0.0.0/18157.css")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
 
   body!= body
+
+
+    script(type="text/javascript")
+      $(function(){
+        var href= $("meta[name=font]").attr('href');
+        $('head title').after($('<link>')
+          .attr({
+            rel : 'stylesheet',
+            href : href
+          }))
+      })
 
     if(production)
       script(type="text/javascript")

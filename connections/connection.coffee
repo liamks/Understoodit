@@ -46,11 +46,13 @@ class Connection
     @tokenC    = @data.tokenC
 
     unless @teacherID? and @tokenA? and @tokenC?
-      return
+      @socket.emit 'initialized-fail', true
+      return @socket.disconnect()
 
     @authorized = @tokensAreValid()
 
     unless @authorized
+      @socket.emit 'initialized-fail', true
       return @socket.disconnect()
       
     @teacherChannel = "teachers.n1.#{@teacherID}"

@@ -39,11 +39,11 @@ exports.getTeacher = function(req, res, next){
   var options = { screenName : req.query.screenName };
   _this.drawbridge.getUser( options, function( error, teacher ){
 
-    if( teacher ){
+    if( teacher && teacher.screenName ){
       req.teacher = teacher;
       next();
     }else{
-      res.json({ error : 'Teacher not found' });
+      res.json({ error : 'Teacher not found' }, 404);
     }
 
   });

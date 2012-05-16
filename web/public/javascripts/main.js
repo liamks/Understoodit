@@ -1,6 +1,15 @@
 ;
 (function(win){
 
+  /* For internet explorer */
+  if( typeof win.console === 'undefined' ){
+    win.console = {};
+  }
+  if( typeof win.console.log === 'undefined' ){
+    win.console.log = function(){};
+  }
+
+
   var _this;
 
   BackboneApp = function(){
@@ -11,7 +20,7 @@
 
   BackboneApp.prototype.addHandlers = function(){
     this.events.on('initialized', function(){
-      $('#loading').fadeOut(1000, function(){
+      $('#loading').fadeOut(800, function(){
         $(this).remove();
         _this.events.trigger('loading-done','')
       });
@@ -26,12 +35,19 @@
     _this.events.trigger('connect-info', info);
   };
 
+  BackboneApp.prototype.processAjaxError = function(info){
+    $("#loading div")
+      .text( "There was an error loading Understoodit, try refreshing the page." )
+      .css({'color' : 'red'});
+  }
+
   BackboneApp.prototype.fetchUserInfo = function(){
     _this = this;
-
+    var screenName = location.pathname.split('/')[1];
     $.ajax({
-      url     : '/info?screenName=' + location.pathname.split('/')[1],
-      success : _this.processInfo
+      url     : '/info?screenName=' + screenName,
+      success : _this.processInfo,
+      error : _this.processAjaxError
     });
   };
   win.app = new BackboneApp();
