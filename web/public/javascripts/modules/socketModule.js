@@ -5,6 +5,7 @@
     this.addHandlers();
     _this = this;
     this.initialized = false;
+    this.connectionAttempts = 0;
   };
 
 
@@ -38,6 +39,7 @@
     _this.info.screenName = location.pathname.substr(1);
     console.log('Socket Connected (init).');
     _this.socket.emit('init', _this.info);
+    this.connectionAttempts = 0;
   };
 
 
@@ -63,11 +65,18 @@
   }
 
   SocketModule.prototype.socketReconnecting = function(){
-    app.events.trigger('notification', {
-      message: "A connection error has occured. Reconnecting...",
-      classTag : 'error',
-      duration : 6000
-    });
+    if(_this.connectionAttempts > 5 ){
+      app.events.trigger('notification', {
+        message: "Understoodit has been disconnected. Please check your internet connection.",
+        classTag : 'error',
+        duration : 6000
+      });
+
+      app.events.trigger('socket-disconnect', '');
+      _this.connectionAttempts = 0;
+    }
+    _this.connectionAttempts += 1;
+
   }
 
   SocketModule.prototype.connectFailed = function(){
@@ -75,6 +84,8 @@
       $('#loading div')
         .text( "Could not connect! Could you try again later?")
         .css({'color' : 'red'})
+    }else{
+      console.error('failed!!!')
     }
   }
 
@@ -83,7 +94,7 @@
     this.socket.on('initialized', this.socketInitialized);
     this.socket.on('initialized-fail', this.socketInitializedFailed );
     this.socket.on('message', this.messageReceived);
-    this.socket.on('reconnecting', this.socketReconnecting)
+    this.socket.on('reconnecting', this.socketReconnecting )
     this.socket.on('error', this.connectFailed );
   };
 

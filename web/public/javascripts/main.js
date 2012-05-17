@@ -10,7 +10,8 @@
   }
 
 
-  var _this;
+  var _this, mie = /MSIE (6|7|8)/;
+
 
   BackboneApp = function(){
     this.events = _.extend( {}, Backbone.Events );
@@ -41,14 +42,26 @@
       .css({'color' : 'red'});
   }
 
+  BackboneApp.prototype.mieFallBack = function(){
+    $('#loading div')
+      .html( "We only support Firefox, Chrome, Safari, and Internet Explorer 9 &amp; 10")
+      .css({ 'color' :'red' });
+  }
+
   BackboneApp.prototype.fetchUserInfo = function(){
-    _this = this;
-    var screenName = location.pathname.split('/')[1];
-    $.ajax({
-      url     : '/info?screenName=' + screenName,
-      success : _this.processInfo,
-      error : _this.processAjaxError
-    });
+
+    if( mie.test( navigator.userAgent )){
+      this.mieFallBack();
+    }else{
+      _this = this;
+      var screenName = location.pathname.split('/')[1];
+      $.ajax({
+        url     : '/info?screenName=' + screenName,
+        success : _this.processInfo,
+        error : _this.processAjaxError
+      });
+      }
+
   };
   win.app = new BackboneApp();
 

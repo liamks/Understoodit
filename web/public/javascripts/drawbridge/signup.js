@@ -47,6 +47,25 @@ $(function(){
     evt.preventDefault();
   })
 
+  if(/MSIE (6|7|8)/.test( navigator.userAgent )){
+    var $text = $( $('.container')[2] );
+    var $pics = $( $('.container')[3] );
+    var $footer = $( $('.container')[4] );
+
+    $('body .container').remove()
+    $('body')
+      .append(
+        $('<div>').addClass('container').css('text-align', 'center')
+          .append($('<h1>').text('Understoodit').css({'font-size': '260%', 'margin': '20px 0'}))
+          .append($('<div>').html("It looks like you're using an older browser, we only support Firefox, Chrome, Safari, and Internet Explorer 9 &amp; 10")
+            .css({'color': 'red', 'font-size': '160%', 'line-height':'30px'}))
+      )
+
+      .append( $text )
+      .append( $pics )
+      .append( $footer.css('text-align','center') );
+  }
+
 });
 
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

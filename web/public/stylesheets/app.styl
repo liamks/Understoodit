@@ -6,12 +6,15 @@ border-radius()
 
 background-gradient(start, stop)
   background-color: start
+  background-image: -ms-linear-gradient(top, #08C, #05C);
   background-image: -moz-linear-gradient(top, start, stop)
   background-image: -ms-linear-gradient(top, start, stop)
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(start), to(stop))
   background-image: -webkit-linear-gradient(top, start, stop)
   background-image: -o-linear-gradient(top, start, stop)
   background-image: linear-gradient(top, start, stop)
+  filter: unquote("progid:dximagetransform.microsoft.gradient(startColorstr='" + start + "', endColorstr='" + stop + "', GradientType=0)")
+  filter: unquote("progid:dximagetransform.microsoft.gradient(enabled=false)")
 
 
 .clear
