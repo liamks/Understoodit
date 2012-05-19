@@ -14,7 +14,10 @@
 
   if( /MSIE 9/.test( navigator.userAgent ) ){
     //IE looks buggy with rounded corners...
-    $('a, div, canvas').css('border-radius','0');
+    $('head').append($('<link>').attr({
+      'rel' : 'stylesheet',
+      'href' : '/stylesheets/ie.css'
+    }))
   }
 
 
