@@ -19,7 +19,6 @@ program
 
 var path = program.args.shift() || '.',
     webRoot = '/var/w/understoodit/web',
-    socketRoot = '/var/w/understoodit/socket',
     teacherRoot = '/var/w/understoodit/teachers',
     tempRoot = '/root/temp/Understoodit',
     appRoot = '/var/w/';
@@ -32,9 +31,6 @@ var path = program.args.shift() || '.',
   }
 
 
-  if(program.socket){
-
-  }
 
 
   if(program.teacher){
@@ -68,7 +64,7 @@ exec('npm install && cd web && npm install && cd ..', function(error, stdout, st
           }else{
             console.log('copy file success');
 
-            exec('restart teachers1 && restart socket1 && restart web1 && restart web2')
+            exec('restart teachers1 && restart web1')
 
 
           }
