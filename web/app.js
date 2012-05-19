@@ -153,5 +153,5 @@ app.get('/:screenName', [ checkIfUserExists ], routes.understoodit );
 app.post('/:screenName/profile', [ routes.saveProfileSetup ], routes.saveProfile )
 
 
-app.listen(port);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+//app.listen(port);
+//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
