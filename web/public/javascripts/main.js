@@ -12,6 +12,11 @@
 
   var _this, mie = /MSIE (6|7|8)/;
 
+  if( /MSIE 9/.test( navigator.userAgent ) ){
+    //IE looks buggy with rounded corners...
+    $('a, div, canvas').css('border-radius','0');
+  }
+
 
   BackboneApp = function(){
     this.events = _.extend( {}, Backbone.Events );
