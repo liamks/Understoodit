@@ -25,7 +25,7 @@ class ConnectionsServer
 
     @io.configure 'production', () =>
       @io.set 'log level', 1
-      @io.set 'close timeout', 5
+      @io.set 'close timeout', 10
 
     @io.on 'connection', (socket) =>
 
