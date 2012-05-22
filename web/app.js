@@ -81,6 +81,18 @@ function staticCaching( req, res, next ){
   }
 }
 
+// Redirect www to non-www
+
+function redirectWWW( req, res, next ){
+  var host = req.header('host');
+
+  if ( host.match(/^www/) !== null ) {
+    res.redirect('http://' + host.replace(/^www\./, '') + req.url, 301 );
+  } else {
+    next();     
+  }
+}
+
 
 // Configuration
 app.configure(function(){
@@ -92,6 +104,7 @@ app.configure(function(){
   app.use(express.session({ secret: 'hasUMdfasdurwqfasfdee35fr5 2347#$%><' , store: new RedisStore}));
   app.use(require('stylus').middleware({ src: __dirname + '/public',compress :true }));
 
+  app.use( redirectWWW );
   app.use(express.favicon(__dirname + '/public/favicon.ico',  { maxAge: 2592000000 }));
   app.use(app.router);
  
@@ -110,7 +123,7 @@ app.configure('production', function(){
 
 
 
-
+ 
 
 //Setup drawbridge.js
 drawbridge = drawbridge.up( app );
