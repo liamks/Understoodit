@@ -19,8 +19,10 @@ ConnectionsServer.prototype.start = function( webServer ) {
     return _this.io.set('log level', 0);
   });
   this.io.configure('production', function() {
-    _this.io.set('log level', 1);
-    return _this.io.set('close timeout', 10);
+    _this.io.set( 'log level', 1 );
+    _this.io.set( 'browser client', false );
+    _this.io.set( 'transports', ["xhr-polling"] );
+    _this.io.set( 'polling duration' );
   });
   return this.io.on('connection', function(socket) {
     var connection;
