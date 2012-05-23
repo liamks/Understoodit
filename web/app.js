@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , questions = require('/routes/questions')
   , drawbridge = require('drawbridge')
   , RedisStore = require('connect-redis')(express)
   , uuid = require('node-uuid')
@@ -160,6 +161,11 @@ checkIfUserExists = function( req, res, next ){
     }
   })
 }
+
+
+questions.drawbridge = drawbridge;
+app.get('/:screenName/getallquestions', questions.getAllQuestions );
+app.post('/:screenName/saveQuestion', questions.saveQuestion );
 
 app.get('/:screenName', [ checkIfUserExists ], routes.understoodit );
 
