@@ -1,6 +1,11 @@
 //get module context
 var _this = this;
 
+//for creating unique ids (eg for questions)
+var uuid = require('node-uuid')
+// for connecting to redis
+var redis = require('redis').createClient()
+
 /*
 getAllQuestions returns an array of question objects
 associated with the currently logged in user.
