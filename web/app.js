@@ -5,7 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , questions = require('/routes/questions')
+  , questions = require('./routes/questions')
   , drawbridge = require('drawbridge')
   , RedisStore = require('connect-redis')(express)
   , uuid = require('node-uuid')
