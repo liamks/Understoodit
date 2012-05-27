@@ -139,6 +139,28 @@ routes.drawbridge = drawbridge
 app.get('/', routes.index);
 app.get('/contact/', routes.contact );
 
+/*** QUESTIONS ***/
+questions.drawbridge = drawbridge;
+
+var getCurrentUser = function( req, res, next ){
+  var currentUser = drawbridge.currentUser( req );
+  req.currentUser = currentUser;
+  next();
+};
+
+var userPermission = function( req, res, next ){
+  if( !req.currentUser || req.currentUser.screenName !== req.currentUser.screenName ){
+    res.json('Not permitted', 404 );
+  }else{
+    next();
+  }
+}
+
+app.get('/question/:id', [getCurrentUser], questions.getQuestion );
+app.post('/question/', [getCurrentUser,userPermission], questions.saveQuestion );
+app.put('/question/', [getCurrentUser, userPermission], questions.updateQuestion );
+app.get('/questions/', [getCurrentUser], questions.getAllQuestions );
+/****************/
 
 app.get('/info', [ routes.getTeacher, routes.getSettings ], routes.info);
 
@@ -163,9 +185,7 @@ checkIfUserExists = function( req, res, next ){
 }
 
 
-questions.drawbridge = drawbridge;
-app.get('/:screenName/getallquestions', questions.getAllQuestions );
-app.post('/:screenName/saveQuestion', questions.saveQuestion );
+
 
 app.get('/:screenName', [ checkIfUserExists ], routes.understoodit );
 

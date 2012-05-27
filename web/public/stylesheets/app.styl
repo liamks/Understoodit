@@ -381,6 +381,146 @@ div.meters .rt-text
   height: 300px
   border-radius: 4px
 
+.question-panel
+  margin: 0
+  padding: 0
+
+.question-panel li.question
+  list-style none
+  margin none
+  margin-top: 15px
+  padding: 6px
+  background-color: whiteSmoke
+  border-radius: 4px
+  box-shadow: 3px 3px 3px #888
+  border: 1px solid #CCC;
+  position: relative
+
+li.question
+  #q-form-name
+    float left
+    padding: 0 20px 0 10px;
+    width: 440px
+
+    textarea
+      width: 420px
+      font-size: 100%
+      border: 1px solid #aaa
+      border-radius: 4px
+      padding: 2px
+
+
+
+  #q-form-options
+    float left
+    width: 476px
+
+    input
+      border: 1px solid #aaa
+      border-radius: 4px
+      padding: 2px
+      font-size: 100%
+      width: 448px
+
+   
+  #q-form-buttons
+    position: absolute
+    right 6px
+    top: 10px
+    
+    a
+      text-align: center
+
+    a#question-save
+      background-gradient(#62C462, #51A351)
+      margin-left: 10px
+
+    a#question-cancel
+      background-gradient(#EE5F5B, #BD362F)
+      border-color: red
+
+li.question.asking
+  border-color: green
+  background-color: #ccc
+
+
+
+
+#question-form-wrapper
+  margin-top: 6px
+
+#question-content
+  h3, label
+    font-size:130%
+    margin: 0 0 10px 0
+    color: #555
+    font-weight: bold
+    display: block
+
+  .qtype-radio-label
+    font-size: 100%
+    display: inline
+
+  .q-options
+    li
+      list-style:lower-alpha
+
+  h2.q-name
+    margin: 5px
+    font-size: 125%
+    color: #046294
+
+  .q-buttons
+    position: absolute
+    bottom: 6px
+    right: 4px
+
+    a.done-asking-question
+      display:none
+
+    a
+      font-size: 240%
+
+  .q-edit-buttons
+    position: absolute
+    bottom: 6px
+    right: 4px
+    display:none
+
+    .delete-question
+      background-gradient(#EE5F5B, #BD362F)
+      border-color: #BD362F
+      margin-right: 12px
+
+
+#question-options
+  margin-top 15px
+
+#question-custom
+  min-height: 100px
+
+.an-option
+  display:none
+  ul
+    padding: 0 0 0 22px;
+    margin: 5px 0;
+
+  li
+    list-style:lower-alpha
+
+.an-option.active
+  display:block
+
+
+.btn
+  border: 1px solid #51A351
+  background-gradient(#62C462, #51A351)
+  color #fff
+  padding: 4px 8px
+  font-size: 120%
+  border-radius 4px
+  text-shadow: 1px 1px 1px #444
+
 @media (min-width: 960px)
 
   .container  
@@ -432,11 +572,31 @@ li.active
 a#settingsTab
   background: url("/images/gear_white.png") no-repeat 8px
 
+a#question
+  background: url("/images/question.png") no-repeat 8px
+  margin-right: -4px
+
 li.active
   a#settingsTab
     background: #046294 url("/images/gear_white.png") no-repeat 8px
 
+  a#question
+    background: #046294 url("/images/question.png") no-repeat 8px
+
 @media (min-width: 768px) and (max-width: 979px)
+
+  li.question
+    #q-form-name
+      width: 320px
+
+      textarea
+        width: 320px
+
+    #q-form-options
+      width: 394px
+
+      input[type=text]
+        width: 366px
   
   span#navProfile
     display:none
@@ -471,6 +631,22 @@ li.active
 
 
 @media (max-width: 767px)
+
+  li.question
+    #q-form-name
+
+      textarea
+        width: 99%
+
+    #q-form-name
+      width: 98%
+
+    #q-form-options
+      width: 100%
+
+      input[type=text]
+        width: 98%
+
   span#navProfile
     display:inline
 
@@ -500,6 +676,19 @@ li.active
 
 
 @media (max-width: 420px)
+  li.question
+    #q-form-name
+
+      textarea
+        width: 360px
+
+    #q-form-options
+      width: 380px
+
+      input[type=text]
+        width: 348px
+
+
   span#navProfile
     display:none
 

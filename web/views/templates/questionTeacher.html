@@ -1,0 +1,18 @@
+<h2 class="q-name"><%- q %></h2>
+<ul class="q-options">
+  <% _.each( options, function(option){ %>
+    <% if(option !== ''){ %>
+      <li>
+        <%= option %> 
+      </li>
+    <% } %>
+  <% }) %>
+</ul>
+<div class="q-buttons">
+  <a href="#" class="done-asking-question btn">Done</a>
+  <a href="#" class="ask-question btn">Ask</a>
+</div>
+<div class="q-edit-buttons">
+  <a href="#" class="delete-question btn">Remove</a>
+  <a href="#" class="edit-question btn">Edit</a>
+</div>

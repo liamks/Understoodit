@@ -18,7 +18,8 @@
     "tabsModule",
     "notificationsModule",
     "settingsModule",
-    "profileModule"
+    "profileModule",
+    "questionsModule"
   ],
 
   "templates" : [

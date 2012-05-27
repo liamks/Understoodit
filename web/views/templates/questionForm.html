@@ -1,0 +1,61 @@
+<div id="q-form-name">
+  <div>
+    <label for="qtype">Question Type</label>
+
+    <% if( qtype == 'likert' ){ %>
+      <label class="qtype-radio-label">
+        <input type="radio" name="qtype" value="likert" checked=checked> Likert
+      </label>
+      <label class="qtype-radio-label">
+        <input type="radio" name="qtype" value="custom"> Custom
+      </label>
+    <% } else { %>
+      <label class="qtype-radio-label">
+        <input type="radio" name="qtype" value="likert"> Likert
+      </label>
+      <label class="qtype-radio-label">
+        <input type="radio" name="qtype" value="custom" checked=checked> Custom
+      </label>
+
+    <% } %>
+
+  </div>
+  <div id="question-form-wrapper">
+    <label for="question">Question</label>
+    <textarea name="question"><%= q %></textarea>
+  </div>
+
+
+</div>
+
+<div id="q-form-options">
+  <h3>
+    Options
+  </h3>
+  <div id="likert" class="an-option <%= qtype == 'likert' ? 'active' : '' %>">
+    <ul>
+      <li>Strongly Agree</li>
+      <li>Agree</li>
+      <li>Neutral</li>
+      <li>Disagree</li>
+      <li>Strongly Disagree</li>
+    </ul>
+  </div>
+
+  <div id="custom" class="an-option  <%= qtype == 'custom' ? 'active' : '' %>">
+    <ul>
+      <% _.each(options, function(option){ %>
+        <li>
+          <input type="text" value=<%= option %> >
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+</div>
+
+<div id="q-form-buttons">
+  <a href="#" id="question-cancel" class="btn">Cancel</a>
+  <a href="#" id="question-save" class="btn">Save</a>
+</div>
+<div class="clear"></div>

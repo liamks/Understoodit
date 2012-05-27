@@ -1,60 +1,108 @@
+var uuid = require('node-uuid'),
+    redis = require('redis').createClient(),
+    _ = require('underscore')._;
+
 //get module context
 var _this = this;
 
-/*
-getAllQuestions returns an array of question objects
-associated with the currently logged in user.
 
-Example response:
-[
- { 
-  id : '2345AB8'
-   q : 'What is the distance to the moon',
-   options {
-    a : 123,
-    b : 2353,
-    c : 4566
-   },
-   correctOption: a
-   },
 
- { 
-  id : '2345AB9'
-   q : 'What is the distance to Saturn',
-   options {
-    a : 1233,
-    b : 55353,
-    c : 4266
-   },
-   correctOption: b
-   },
-]
+exports.dbGetAllQuestions = function( userEmail, cb ){
+  redis.zrange( userEmail + '-questions', 0, -1, function(e,results){
+    var multi = redis.multi();
 
- 
- assume webrequest comes from
- understoodit.com/liam
+    for(var i = 0; i< results.length; i++){
+      multi.hgetall( results[i] );
+    }
 
- - Must check and see if user is logged in.
- - If user is logged in need to check that currently
- logged (screenName) matches === liam
- - if so we retreive all users questions,
- - if not we return json with status 404
+    multi.exec(function( err, results){
+      cb( err, results );
+    });
 
-*/
-exports.getAllQuestions = function( req, res ){
-  var currentUser = _this.drawbridge.currentUser( req );
+  })
 }
 
-
+/*
+GET /question/:id
+*/
+exports.getQuestion = function( req, res ){
+  redis.hgetall( req.params.id, function( e, question){
+    res.json( question );
+  })
+}
 
 /*
- need to check if user is logged, etc
- using an AJAX post request, saveQuestion should be able
- to save the current question. If it already exists, update
- it, otherwise create new question AND add the
- new question to the current user's sortedset of questions
+POST /question/
 
+{
+  qtype : (custom|likert),
+  options : [],
+  q : '',
+  screenName, ''
+}
+
+1. generate random ID
+2. save question
+3. add question user's sorted set of questions
+4. return saved question with proper id
 */
 exports.saveQuestion = function( req, res ){
+  var question = {
+        id : uuid.v4(),
+        qtype : req.param('qtype'),
+        options : req.param('options'),
+        q : req.param('q')
+      },
+      lowerCaseEmail = req.currentUser.email.toLowerCase(),
+      date = Date.now();
 
+  redis.multi()
+    .hmset( question.id, question )
+    .zadd( lowerCaseEmail + '-questions', date, question.id )
+    .exec( function( err, results ){
+
+      if( err ){
+        res.json( 'Database error', 404 );
+      }else{
+        res.json( question );
+      }
+
+    });
+  
 }
+
+
+/*
+PUT /question/:id
+*/
+exports.updateQuestion = function( req, res ){
+  var question = {
+        id : req.param('id'),
+        qtype : req.param('qtype'),
+        options : req.param('options'),
+        q : req.param('q')
+      };
+
+  redis.hmset( question.id, question, function( err, q){
+    res.json( question )
+  });
+}
+
+/*
+GET /questions/
+*/
+exports.getAllQuestions = function( req, res ){
+  var lowerCaseEmail = req.currentUser.email.toLowerCase();
+
+
+  exports.dbGetAllQuestions( lowerCaseEmail, function( err, questions ){
+    question = _.map(questions, function(question){
+      question.options = question.options.split(',');
+      return question;
+    })
+
+    res.json( questions );
+  });
+}
+
+
