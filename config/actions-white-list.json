@@ -7,5 +7,7 @@
 
   "settings"  : "0",
 
+  "question" : "2",
+  
   "_code" : " 0 - Teacher Only, 1 - Student Only, 2 - Both"
 }

@@ -21,7 +21,39 @@
     app.events.on('understood', this.understood);
     app.events.on('confused', this.confused);
     app.events.on('send-settings', this.sendSettings);
+    app.events.on('question-ask', this.questionAsk );
+    app.events.on('question-answer', this.questionAnswer );
+    app.events.on('question-done', this.questionDone );
+    
   };
+
+  SocketModule.prototype.questionDone = function( questionID ){
+    _this.socket.emit('message',{
+      action : 'question',
+      subaction : 'done',
+      questionID : questionID
+    })
+  };
+
+  SocketModule.prototype.questionAnswer = function( obj ){
+    _this.socket.emit('message', {
+      action: 'question',
+      subaction : 'answer',
+      questionID : obj.questionID,
+      selected : obj.selected,
+      studentID : _this.info.studentID
+    })
+  };
+
+  SocketModule.prototype.questionAsk = function( questionID ){
+    _this.socket.emit('message', {
+      action : 'question',
+      subaction : 'ask-question',
+      questionID : questionID
+    })
+  };
+
+
 
   SocketModule.prototype.sendSettings = function(newSettings){
     newSettings.action = 'settings';
@@ -31,6 +63,7 @@
 
   SocketModule.prototype.connect = function(info){
     _this.info = info;
+
     _this.socket = io.connect(info.socketURL);
     _this.addSocketHandlers();
   };
@@ -50,6 +83,7 @@
         isTeacher : _this.info.studentID === undefined,
         isMobile : _this.isMobile()
       }
+
       console.log('Socket Initialized (initialized)')
       app.events.trigger('initialized', obj);
     }
@@ -96,6 +130,7 @@
     this.socket.on('message', this.messageReceived);
     this.socket.on('reconnecting', this.socketReconnecting )
     this.socket.on('error', this.connectFailed );
+
   };
 
 

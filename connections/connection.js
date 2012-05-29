@@ -57,28 +57,36 @@
       this.studentID = this.data.studentID;
       this.tokenA = this.data.tokenA;
       this.tokenC = this.data.tokenC;
+
       if (!((this.teacherID != null) && (this.tokenA != null) && (this.tokenC != null))) {
         this.socket.emit('initialized-fail', true);
         return this.socket.disconnect();
       }
+
       this.authorized = this.tokensAreValid();
+
       if (!this.authorized) {
         this.socket.emit('initialized-fail', true);
         return this.socket.disconnect();
       }
+
       this.teacherChannel = "teachers.n1." + this.teacherID;
+
       if (this.studentID != null) {
+        /* Is a student, subscribe to student channels */
         this.sub.subscribe(this.studentID);
         this.sub.subscribe("" + this.teacherID + ".students");
       } else {
         this.sub.subscribe(this.teacherID);
       }
+
       this.sub.on('message', function(channel, msg) {
         var message;
         message = JSON.parse(msg);
         message.date = Date.now();
         return _this.socket.emit('message', message);
       });
+
       connectMsg = this.data;
       connectMsg.action = "connect";
       connectMsg.date = Date.now();

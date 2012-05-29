@@ -159,7 +159,7 @@ var userPermission = function( req, res, next ){
 app.get('/question/:id', [getCurrentUser], questions.getQuestion );
 app.post('/question/', [getCurrentUser,userPermission], questions.saveQuestion );
 app.put('/question/', [getCurrentUser, userPermission], questions.updateQuestion );
-app.get('/questions/', [getCurrentUser], questions.getAllQuestions );
+app.get('/questions/', [getCurrentUser, userPermission], questions.getAllQuestions );
 /****************/
 
 app.get('/info', [ routes.getTeacher, routes.getSettings ], routes.info);

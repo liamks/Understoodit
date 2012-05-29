@@ -53,15 +53,20 @@ exports.getTeacher = function(req, res, next){
 exports.getSettings = function(req, res, next){
   if( req.teacher.settings_studentsCanSeeComprehension !== undefined ){
     req.teacherSettings = {
-      studentsCanSeeComprehension : req.teacher.settings_studentsCanSeeComprehension === "true"
+      studentsCanSeeComprehension : req.teacher.settings_studentsCanSeeComprehension === "true",
+      buttonTimeout : req.teacher.settings_buttonTimeout || "10"
     };
     next();
   }else{
     redis.multi()
-      .hset( req.teacher.email, 'settings_studentsCanSeeComprehension', true )
+      .hmset( req.teacher.email, {
+        'settings_studentsCanSeeComprehension': true,
+        'settings_buttonTimeout' : "10"
+      })
       .exec(function( err, result ){
         req.teacherSettings = {
-          studentsCanSeeComprehension : true
+          studentsCanSeeComprehension : true,
+          buttonTimeout : "10"
         };
         next();
       });
@@ -131,7 +136,8 @@ exports.saveSettings = function(req, res){
       screenName = req.setup.screenName,
       multi = redis.multi(),
       settings = {
-        studentsCanSeeComprehension : req.param('studentsCanSeeComprehension') == 'true'
+        studentsCanSeeComprehension : req.param('studentsCanSeeComprehension') == 'true',
+        buttonTimeout : req.param('buttonTimeout')
       },
       keys = _.keys( settings );
     

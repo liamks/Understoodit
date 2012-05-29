@@ -1,6 +1,6 @@
 (function(){
 
-
+  var isTeacher;
 
   var Question = Backbone.Model.extend({
 
@@ -181,6 +181,25 @@
 
       this.$el.find('.ask-question').hide();
       this.$el.find('.done-asking-question').show();
+      this.$el.find('.q-results').show();
+      app.events.on('lecture-state',  this.lectureState, this);
+    },
+
+    lectureState : function( state ){
+
+      var answers = _.toArray( state['questions'][this.model.id] )[0],
+            _this = this,
+            n = state['numStudents'];
+
+      _.each( answers, function(answer, index ){
+        var $li = $(_this.$el.find('ul.q-results li')[index]),
+            ratio = answer/n,
+            percent = Math.ceil(ratio * 100),
+            width = 200 * (ratio);
+
+        $li.find('.percent-value').text(answer + " (" + percent + "%)");
+        $li.find('.percent-box').css('padding-left', width );
+      })
     },
 
     doneAsking : function(evt){
@@ -188,6 +207,9 @@
       this.$el.removeClass('asking');
       this.$el.find('.ask-question').show();
       this.$el.find('.done-asking-question').hide();
+      this.$el.find('.q-results').hide();
+      app.events.trigger('question-done', this.model.id );
+      app.events.off('lecture-state', this.lectureState, this);
     },
 
     render : function(){
@@ -256,7 +278,7 @@
         view.editMode();
       })
       if(this.editMode){
-        $(target).text('Turn off editing');
+        $(target).text('Done');
       }else{
         $(target).text('Edit')
       }
@@ -277,7 +299,61 @@
       this.views.push(qView);
     },
 
+  });
 
+
+
+  var StudentQuestion = Backbone.View.extend({
+    template : _.template( templates['studentQuestion']),
+    tagName : 'li',
+    className : 'question student-question',
+    
+    events : {
+      'click .done-answering-question' : 'answered'
+    },
+
+    answered : function(evt){
+      var selection = this.$el.find('input[name=answer]:checked').val()
+
+      if(selection === undefined){
+        alert('You must select an answer!');
+      }else{
+        app.events.trigger( 'question-answer', {
+          selected: selection,
+          questionID : this.model.id });
+        app.events.trigger( 'notification', {
+          message : "Your answer has been sent!"
+        });
+        var _this = this;
+        this.$el.fadeOut(function(){
+          _this.$el.remove();
+        });  
+      }
+
+    },
+
+    render : function(){
+      this.$el.html( this.template( this.model.toJSON() ) );
+      return this.$el;
+    }
+  });
+
+  var StudentQuestionView = Backbone.View.extend({
+    tagName : 'ul',
+    className : 'question-panel',
+    id : 'question-custom',
+
+    initialize : function(){
+      
+    },
+
+    render : function(){
+      $('#question-content').html( this.$el );
+    },
+
+    addQuestionView : function($el){
+      this.$el.append( $el );
+    }
 
   });
 
@@ -287,19 +363,40 @@
   QuestionsModule = function(){
     _this = this;
     this.addHandlers();
+    _this.queuedQuestions = [];
   }
 
 
   QuestionsModule.prototype.addHandlers = function(){
     app.events.on('connect-info', this.initialized );
     app.events.on('parentView-loaded', this.loadView );
+    app.events.on('question-received', this.questionReceived );
   }
 
+
+  QuestionsModule.prototype.questionReceived = function( question ){
+    question.options = question.options.split(',');
+    var view = new StudentQuestion({
+      model: new Question(question)
+    });
+    view = view.render();
+
+    if(_this.view == undefined){
+      _this.queuedQuestions.push( view );
+    }else{
+      _this.view.addQuestionView(view);
+    }
+    
+    /* If a student connects after a question has been asked
+      they will receive the question before _this.view has
+      been rendered.
+    */
+  }
 
   QuestionsModule.prototype.initialized = function( obj ){
     _this.connectInfoLoaded = true;
     _this.connectInfo = obj;
-
+    isTeacher = obj.loggedIn && !obj.studentID;
     if(_this.parentViewLoaded ){
       _this.loadView();
     }
@@ -310,10 +407,23 @@
     _this.parentViewLoaded = true;
 
     if(_this.connectInfoLoaded){
-      _this.view = new QuestionsView({
-        el : $('#question-content')
-      });
-      _this.view.render();
+
+      if(isTeacher){
+        _this.view = new QuestionsView({
+          el : $('#question-content')
+        });
+        _this.view.render();
+      }else{
+        _this.view = new StudentQuestionView();
+        _this.view.render();
+
+        if( _this.queuedQuestions.length > 0 ){
+          _.each( _this.queuedQuestions, function( questionView ){
+            _this.view.addQuestionView( questionView );
+          })
+        }
+      }
+
     }
   }
 

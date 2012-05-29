@@ -1,0 +1,15 @@
+<h2 class="q-name"><%- q %></h2>
+<ul class="q-options">
+  <% _.each( options, function(option, index){ %>
+    <% if(option !== ''){ %>
+      <li>
+        <label>
+          <input type="radio" name="answer" value="<%= index %>"><%= option %> 
+        </label> 
+      </li>
+    <% } %>
+  <% }) %>
+</ul>
+<div class="q-buttons">
+  <a href="#" class="done-answering-question btn">Answer</a>
+</div>

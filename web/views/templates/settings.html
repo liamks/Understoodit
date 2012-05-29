@@ -14,9 +14,29 @@
         Enable
       </label>
     </div>
+
+  <div class='row'>
+    <div class="span4">
+      <h4>Confusion/Understanding Button Timeout</h4>
+      <p>Specify the mininum interval between confusion/understanding button clicks</p>
+    </div>
+    <div class="span8">
+      <% selected = "selected='selected'" %>
+      <select name="buttonTimeout">
+
+        <option value="10" <%= buttonTimeout === "10" ? selected : '' %> >10 Seconds</option>
+        <option value="15" <%= buttonTimeout === "15" ? selected : '' %>>15 Seconds</option>
+        <option value="30" <%= buttonTimeout === "30" ? selected : '' %>>30 Seconds</option>
+        <option value="45" <%= buttonTimeout === "45" ? selected : '' %>>45 Seconds</option>
+        <option value="60" <%= buttonTimeout === "60" ? selected : '' %>>60 Seconds</option>
+        <option value="75" <%= buttonTimeout === "75" ? selected : '' %>>75 Seconds</option>
+      </select>
+    </div>
+
+
   </div>
 
   <div class="submit">
     <input type="submit" value="Save">
   </div>
-</form>
+</form> 

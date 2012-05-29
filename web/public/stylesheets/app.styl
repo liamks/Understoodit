@@ -410,7 +410,6 @@ li.question
       padding: 2px
 
 
-
   #q-form-options
     float left
     width: 476px
@@ -438,6 +437,40 @@ li.question
     a#question-cancel
       background-gradient(#EE5F5B, #BD362F)
       border-color: red
+
+#question-content
+  li.question.student-question
+    label
+      font-size: 110%;
+      font-weight: normal;
+
+    input[type=radio]
+      margin-right: 10px
+
+ul.q-results
+  display none
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 400px;
+  margin-top: 10px;
+  background: whiteSmoke;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+  li
+    list-style lower-alpha
+    position: relative
+
+  .percent-value
+    width: 56px
+    position absolute
+
+  .percent-box
+    border: 1px solid #ccc
+    position absolute
+    left 60px
+    top 0
+    height 18px
 
 li.question.asking
   border-color: green

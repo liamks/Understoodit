@@ -10,8 +10,13 @@
       'click #confused'   : 'confused'
     },
 
-    initialize: function(){
+    initialize: function( options ){
       this.active = true;
+      this.buttonTimeout = options.buttonTimeout * 1000;
+    },
+
+    updateButtonTimeout : function( newButtonTimeout ){
+      this.buttonTimeout = newButtonTimeout * 1000;
     },
 
     understood : function(evt){
@@ -41,7 +46,7 @@
       setTimeout(function(){
         _this.active = true;
         _this.$el.find('a').removeClass('inactive');
-      }, 8000);
+      }, this.buttonTimeout );
     },
 
     triggerNotification: function(type){
@@ -68,7 +73,24 @@
   ComprehensionModule.prototype.addHandlers = function(){
     app.events.on('initialized', this.initialized);
     app.events.on('parentView-loaded', this.loadView);
+    app.events.on('settings', this.settings );
+    app.events.on('connect-info', this.connectInfo);
 
+  };
+
+
+  ComprehensionModule.prototype.connectInfo = function( obj ){
+    _this.buttonTimeout = obj.settings.buttonTimeout
+    if(_this.comprehension && !_this.isTeacher){
+      _this.settings( obj.settings );
+    }
+  };
+
+  ComprehensionModule.prototype.settings = function( newSettings ){
+    if(!_this.isTeacher){
+      _this.comprehension.updateButtonTimeout( newSettings.buttonTimeout );
+    }
+    
   };
 
   ComprehensionModule.prototype.initialized = function(obj){
@@ -79,7 +101,9 @@
   ComprehensionModule.prototype.loadView = function(){
     _this.comprehension;
     if(! _this.isTeacher){
-      _this.comprehension = new ComprehensionView();
+      _this.comprehension = new ComprehensionView({
+        buttonTimeout : _this.buttonTimeout
+      });
       _this.comprehension.render();
     }
   }

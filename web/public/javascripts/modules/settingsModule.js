@@ -1,10 +1,11 @@
 (function(){
-
+ 
 
   Settings = Backbone.Model.extend({
     toJSON : function(){
       return {
-        studentsCanSeeComprehension : this.get('studentsCanSeeComprehension')
+        studentsCanSeeComprehension : this.get('studentsCanSeeComprehension'),
+        buttonTimeout : this.get('buttonTimeout')
       }
     }
   });
@@ -21,9 +22,12 @@
     },
 
     saveChanges : function(evt){
-      var scsc = this.$studentsCanSeeComprehension.attr('checked') === 'checked';
+      var scsc = this.$studentsCanSeeComprehension.attr('checked') === 'checked',
+         buttonTimeout = $('select[name=buttonTimeout] option:selected').val();
+
       this.model.set({
-        studentsCanSeeComprehension : scsc
+        studentsCanSeeComprehension : scsc,
+        buttonTimeout : buttonTimeout
       });
 
       app.events.trigger('notification', {
@@ -43,9 +47,10 @@
       evt.preventDefault();
     },
 
-    updateSettings : function( newSettings){
+    updateSettings : function( newSettings ){
       this.model.set({
-        studentsCanSeeComprehension : newSettings.studentsCanSeeComprehension
+        studentsCanSeeComprehension : newSettings.studentsCanSeeComprehension,
+        buttonTimeout: newSettings.buttonTimeout
       });
 
       this.$el.html( this.template( this.model.toJSON() ));

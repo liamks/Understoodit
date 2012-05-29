@@ -8,6 +8,17 @@
     <% } %>
   <% }) %>
 </ul>
+<ul class="q-results">
+    <% colors = ['#110542', '#f0f463', '#f94c73', '#f37a07', '#0784fc'] %>
+    <% _.each( options, function(option, index){ %>
+    <% if(option !== ''){ %>
+      <li>
+        <span class="percent-value"></span>
+        <span class="percent-box" style="background-color: <%= colors[index] %>"></span>
+      </li>
+    <% } %>
+  <% }) %>
+</ul>
 <div class="q-buttons">
   <a href="#" class="done-asking-question btn">Done</a>
   <a href="#" class="ask-question btn">Ask</a>
