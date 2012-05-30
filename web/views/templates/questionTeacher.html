@@ -1,29 +1,26 @@
 <h2 class="q-name"><%- q %></h2>
 <ul class="q-options">
-  <% _.each( options, function(option){ %>
+  <% _.each( options, function(option, index){ %>
     <% if(option !== ''){ %>
       <li>
-        <%= option %> 
-      </li>
-    <% } %>
-  <% }) %>
-</ul>
-<ul class="q-results">
-    <% colors = ['#110542', '#f0f463', '#f94c73', '#f37a07', '#0784fc'] %>
-    <% _.each( options, function(option, index){ %>
-    <% if(option !== ''){ %>
-      <li>
-        <span class="percent-value"></span>
-        <span class="percent-box" style="background-color: <%= colors[index] %>"></span>
+        <p><%= option %><p>
+        <div class="q-result">
+          <div class="percent-box"></div>
+          <div class="percent-value"></div>
+          
+        </div>
       </li>
     <% } %>
   <% }) %>
 </ul>
 <div class="q-buttons">
-  <a href="#" class="done-asking-question btn">Done</a>
+  <a href="#" class="close-asking-question btn">Close</a>
+  <a href="#" class="done-asking-question btn">End</a>
   <a href="#" class="ask-question btn">Ask</a>
 </div>
 <div class="q-edit-buttons">
   <a href="#" class="delete-question btn">Remove</a>
   <a href="#" class="edit-question btn">Edit</a>
 </div>
+
+<div class="q-status"></div>

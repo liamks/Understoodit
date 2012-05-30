@@ -215,12 +215,18 @@ class Teacher
 
     else if message.subaction is 'done'
 
-      delete @questionMap[message.questionID]
-      @questions = _.reject @questions, ( question )->
-        return question.id is message.questionID 
+      @send @studentChannel, {'action' : 'question-done-student', 'questionID' : message.questionID }
+    
+      #wait 31 seconds to remove question, give student some extra time
+      setTimeout () =>
+        delete @questionMap[message.questionID]
+        @questions = _.reject @questions, ( question )->
+          return question.id is message.questionID 
 
-      if @questions.length is 0
-        @askingQuestion = false
+        if @questions.length is 0
+          @askingQuestion = false
+      , 31 * 1000
+
       
 
   receive: (message) ->

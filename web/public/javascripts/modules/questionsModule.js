@@ -146,7 +146,8 @@
       'click .ask-question' : 'askQuestion',
       'click .done-asking-question': 'doneAsking',
       'click .delete-question' : 'delete',
-      'click .edit-question'  : 'edit'
+      'click .edit-question'  : 'edit',
+      'click .close-asking-question' : 'closeAsking'
     },
 
     delete : function(evt){
@@ -181,7 +182,7 @@
 
       this.$el.find('.ask-question').hide();
       this.$el.find('.done-asking-question').show();
-      this.$el.find('.q-results').show();
+      this.$el.find('.q-result').show();
       app.events.on('lecture-state',  this.lectureState, this);
     },
 
@@ -192,24 +193,55 @@
             n = state['numStudents'];
 
       _.each( answers, function(answer, index ){
-        var $li = $(_this.$el.find('ul.q-results li')[index]),
+        var $li = $(_this.$el.find('div.q-result')[index]),
             ratio = answer/n,
             percent = Math.ceil(ratio * 100),
             width = 200 * (ratio);
 
         $li.find('.percent-value').text(answer + " (" + percent + "%)");
-        $li.find('.percent-box').css('padding-left', width );
+        $li.find('.percent-box').width( width );
       })
     },
 
-    doneAsking : function(evt){
+    updateQStatus : function(){
+      if( this.timeLeft == 0 ){
+        clearInterval( this.timeOut )
+        this.$el.find('.q-status').hide();
+        // done
+      }else{
+        this.$el.find('.q-status').text(
+          this.timeLeft + " seconds to answer!"
+        )
+        this.timeLeft = this.timeLeft - 1
+      }
+      
+    },
+
+    closeAsking : function(){
       this.asking = false;
       this.$el.removeClass('asking');
+      this.$el.find('.close-asking-question').hide();
       this.$el.find('.ask-question').show();
-      this.$el.find('.done-asking-question').hide();
-      this.$el.find('.q-results').hide();
+      
+      this.$el.find('.q-result').hide();
+    },
+
+    doneAsking : function(evt){
+   
+      var _this = this;
+      setTimeout(function(){
+        
+        _this.$el.find('.close-asking-question').show();
+
+        app.events.off('lecture-state', _this.lectureState, _this);
+      }, 30 * 1000)
+      _this.$el.find('.done-asking-question').hide();
+      this.$el.find('.q-status').text("30 seconds to answer!");
+      this.$el.find('.q-status').show();
+      this.timeLeft = 30;
+      this.timeOut = setInterval(  $.proxy( this.updateQStatus, this ), 1000 );
       app.events.trigger('question-done', this.model.id );
-      app.events.off('lecture-state', this.lectureState, this);
+      
     },
 
     render : function(){
@@ -312,7 +344,29 @@
       'click .done-answering-question' : 'answered'
     },
 
+    initialize: function(){
+      app.events.on('question-done-student', this.questionDone, this );
+    },  
+
+    questionDone : function( msg ){
+      if(msg.questionID === this.model.id ){
+        alert("Answering time is nearly up, you have 30 seconds to answer!");
+        
+        this.timeOut = setTimeout( $.proxy( this.remove, this ), 30 * 1000 );
+
+      }
+    },
+
+    remove : function(){
+      app.events.off('question-done-student', this.questionDone, this );
+      var _this = this;
+      this.$el.fadeOut(function(){
+        _this.$el.remove();
+      });  
+    },
+
     answered : function(evt){
+      window.clearTimeout( this.timeOut );
       var selection = this.$el.find('input[name=answer]:checked').val()
 
       if(selection === undefined){
@@ -324,6 +378,7 @@
         app.events.trigger( 'notification', {
           message : "Your answer has been sent!"
         });
+        app.events.off('question-done-student', this.questionDone, this );
         var _this = this;
         this.$el.fadeOut(function(){
           _this.$el.remove();
@@ -371,7 +426,9 @@
     app.events.on('connect-info', this.initialized );
     app.events.on('parentView-loaded', this.loadView );
     app.events.on('question-received', this.questionReceived );
+
   }
+
 
 
   QuestionsModule.prototype.questionReceived = function( question ){

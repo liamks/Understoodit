@@ -15,9 +15,7 @@ exports.dbGetAllQuestions = function( userEmail, cb ){
       multi.hgetall( results[i] );
     }
 
-    multi.exec(function( err, results){
-      cb( err, results );
-    });
+    multi.exec( cb );
 
   })
 }

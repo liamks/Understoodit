@@ -207,7 +207,7 @@
       }
     }
   };
-
+ 
 
   ClassStateModule.prototype.parentViewLoaded = function(){
     if(_this.isTeacher){

@@ -447,34 +447,53 @@ li.question
     input[type=radio]
       margin-right: 10px
 
-ul.q-results
+div.thirtysecond-warning
+  display: none
+  position: absolute
+  right: 10px
+  top: 10px
+  border: 1px solid red
+  border-radius: 4px
+
+
+div.q-status
+  display: none
+  border 1px solid red
+  border-radius 4px
+  text-align center
+  color: red
+  margin: 12px 0 0 4px;
+  width: 195px;
+  padding: 4px;
+
+div.q-result
   display none
-  border: 1px solid white;
-  border-radius: 4px;
-  width: 400px;
-  margin-top: 10px;
-  background: whiteSmoke;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  
-  li
-    list-style lower-alpha
-    position: relative
+  position: relative
+  height: 26px
+  width: 202px
+  border-radius: 4px
+  background-color: #fff
+  border: 1px solid #888
+  text-align center
+  margin: 4px 0 4px -20px
 
   .percent-value
-    width: 56px
     position absolute
+    width: 204px
+    padding-top: 2px
+
 
   .percent-box
-    border: 1px solid #ccc
-    position absolute
-    left 60px
-    top 0
-    height 18px
+    height 24px
+    border-radius: 4px
+    float: left
+    margin: 1px
+    background-color: #62C462
+    text-shadow 1px 1px 1px #fff
 
 li.question.asking
-  border-color: green
-  background-color: #ccc
+  border-color: #046294
+
 
 
 
@@ -495,8 +514,15 @@ li.question.asking
     display: inline
 
   .q-options
+    padding-left: 25px
+    padding-right: 100px
+
     li
       list-style:lower-alpha
+
+      p
+        margin: 0
+        color: #333
 
   h2.q-name
     margin: 5px
@@ -508,7 +534,7 @@ li.question.asking
     bottom: 6px
     right: 4px
 
-    a.done-asking-question
+    a.done-asking-question, a.close-asking-question
       display:none
 
     a
