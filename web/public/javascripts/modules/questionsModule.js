@@ -187,7 +187,7 @@
     },
 
     lectureState : function( state ){
-      var question =  state['questions'] ? state['questions'][this.model.id] : undefined 
+      var question =  state['questions'] ? state['questions'][this.model.id] : undefined, 
             _this = this,
             n = state['numStudents'];
 
