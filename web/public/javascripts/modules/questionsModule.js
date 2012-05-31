@@ -195,7 +195,7 @@
         return;
       }
 
-      var answers = _.toArray( question )[0],
+      var answers = _.toArray( question )[0];
 
       _.each( answers, function(answer, index ){
         var $li = $(_this.$el.find('div.q-result')[index]),
