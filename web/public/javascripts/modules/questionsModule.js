@@ -187,10 +187,15 @@
     },
 
     lectureState : function( state ){
-
-      var answers = _.toArray( state['questions'][this.model.id] )[0],
+      var question =  state['questions'] ? state['questions'][this.model.id] : undefined 
             _this = this,
             n = state['numStudents'];
+
+      if(question === undefined){
+        return;
+      }
+
+      var answers = _.toArray( question )[0],
 
       _.each( answers, function(answer, index ){
         var $li = $(_this.$el.find('div.q-result')[index]),
@@ -227,7 +232,7 @@
     },
 
     doneAsking : function(evt){
-   
+
       var _this = this;
       setTimeout(function(){
         
