@@ -8,7 +8,6 @@ Connection = require('./connection').connection;
 
 function ConnectionsServer() {
   this.teachers = require('../config/teachers.json');
-  this.connections = {};
 }
 
 ConnectionsServer.prototype.start = function( webServer ) {
@@ -24,18 +23,13 @@ ConnectionsServer.prototype.start = function( webServer ) {
     _this.io.set( 'transports', ["xhr-polling"] );
     _this.io.set( 'polling duration' );
   });
-  return this.io.on('connection', function(socket) {
-    var connection;
-    connection = new Connection(socket);
-    if ((connection != null) && !(_this.connections[socket.id] != null)) {
-      _this.connections[socket.id] = connection;
-      return socket.on('disconnect', function() {
-        if (_this.connections[socket.id] != null) {
-          _this.connections[socket.id].disconnect();
-          return delete _this.connections[socket.id];
-        }
-      });
-    }
+  
+  this.io.on('connection', function(socket) {
+    var connection = new Connection(socket);
+
+    socket.on('disconnect', function() {
+      connection.disconnect();
+    });
   });
 };
 
